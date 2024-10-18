@@ -1,0 +1,6 @@
+@Shield.Api_HostAddress = http://localhost:5007
+
+GET {{Shield.Api_HostAddress}}/ping/
+Accept: application/json
+
+###
