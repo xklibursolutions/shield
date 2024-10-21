@@ -13,7 +13,7 @@ namespace XkliburSolutions.Shield.Web.Pages;
 /// <param name="logger">The logger instance.</param>
 [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 [IgnoreAntiforgeryToken]
-public class ErrorModel(ILogger<ErrorModel> logger) : PageModel
+public class ErrorModel() : PageModel
 {
     /// <summary>
     /// Gets or sets the request ID.
@@ -24,8 +24,6 @@ public class ErrorModel(ILogger<ErrorModel> logger) : PageModel
     /// Gets a value indicating whether the request ID should be shown.
     /// </summary>
     public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
-
-    private readonly ILogger<ErrorModel> _logger = logger;
 
     /// <summary>
     /// Handles GET requests.

@@ -3,9 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using XkliburSolutions.Shield.Api.Configuration.Extensions;
 using XkliburSolutions.Shield.Api.Features.Ping;
 using XkliburSolutions.Shield.CrossCutting.Configuration.Extensions;
+using XkliburSolutions.Shield.CrossCutting.ExceptionHandling;
 using XkliburSolutions.Shield.Infrastructure.Identity;
 using XkliburSolutions.Shield.Infrastructure.Repositories;
-using XkliburSolutions.SHIELD.CrossCutting.Security;
+using XkliburSolutions.Shield.CrossCutting.Security;
+using XkliburSolutions.Shield.CrossCutting.Logging;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
@@ -35,7 +37,17 @@ builder.Services.AddAuthorization();
 builder.Services.AddApiVersioningConfiguration();
 builder.Services.AddSwaggerConfiguration();
 
+// Use custom logging
+builder.UseCustomLogging();
+
 WebApplication app = builder.Build();
+
+// Log that the application has started
+ILogger<Program> logger = app.Services.GetRequiredService<ILogger<Program>>();
+logger.ApplicationStarted();
+
+// Enable the exception handling middleware
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // Configure the HTTP request pipeline for development environment.
 if (app.Environment.IsDevelopment())
