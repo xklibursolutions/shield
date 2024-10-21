@@ -1,9 +1,22 @@
+using XkliburSolutions.Shield.CrossCutting.ExceptionHandling;
+using XkliburSolutions.Shield.CrossCutting.Logging;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+// Use custom logging
+builder.UseCustomLogging();
+
 WebApplication app = builder.Build();
+
+// Log that the application has started
+ILogger<Program> logger = app.Services.GetRequiredService<ILogger<Program>>();
+logger.ApplicationStarted();
+
+// Enable the exception handling middleware
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

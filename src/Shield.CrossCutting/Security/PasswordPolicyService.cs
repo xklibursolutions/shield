@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace XkliburSolutions.SHIELD.CrossCutting.Security;
+namespace XkliburSolutions.Shield.CrossCutting.Security;
 
 /// <summary>
 /// Provides methods for configuring password policies.
