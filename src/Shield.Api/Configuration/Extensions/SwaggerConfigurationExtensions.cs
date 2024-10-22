@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Asp.Versioning.ApiExplorer;
 using Microsoft.OpenApi.Models;
 
 namespace XkliburSolutions.Shield.Api.Configuration.Extensions;

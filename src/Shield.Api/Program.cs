@@ -1,30 +1,22 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using XkliburSolutions.Shield.Api.Configuration.Extensions;
 using XkliburSolutions.Shield.Api.Features.Ping;
 using XkliburSolutions.Shield.CrossCutting.Configuration.Extensions;
 using XkliburSolutions.Shield.CrossCutting.ExceptionHandling;
 using XkliburSolutions.Shield.Infrastructure.Identity;
 using XkliburSolutions.Shield.Infrastructure.Repositories;
-using XkliburSolutions.Shield.CrossCutting.Security;
 using XkliburSolutions.Shield.CrossCutting.Logging;
+using XkliburSolutions.Shield.Api.Features.Register;
+using Asp.Versioning;
+using XkliburSolutions.Shield.Api.Features.Login;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 
 // Configure the database context to use SQLite with the connection string from the configuration.
-builder.Services
-    .AddDbContext<ApplicationDbContext>(options => options
-        .UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddCustomDatabaseContext(builder.Configuration);
 
 // Configure Identity services with custom password options and Entity Framework stores.
-builder.Services
-    .AddIdentity<ApplicationUser, ApplicationRole>(options =>
-    {
-        PasswordPolicyService.ConfigurePasswordOptions(options.Password);
-    })
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+builder.Services.AddCustomIdentity();
 
 // Add services for API endpoint exploration.
 builder.Services.AddEndpointsApiExplorer();
@@ -63,7 +55,10 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapPingEndpoints();
+RouteGroupBuilder apiVersionGroupV1 = app.MapApiVersionGroup(new ApiVersion(1));
+apiVersionGroupV1.MapPingEndpoints();
+apiVersionGroupV1.MapRegisterEndpoints();
+apiVersionGroupV1.MapLoginEndpoints();
 
 // Run the application.
 app.Run();

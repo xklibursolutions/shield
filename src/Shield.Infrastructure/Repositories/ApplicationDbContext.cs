@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using XkliburSolutions.Shield.Infrastructure.Identity;
+using XkliburSolutions.Shield.CrossCutting.Entities;
 
 namespace XkliburSolutions.Shield.Infrastructure.Repositories;
 
