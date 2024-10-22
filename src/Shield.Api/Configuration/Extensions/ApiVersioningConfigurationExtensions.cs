@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Versioning;
+﻿using Asp.Versioning;
+using Asp.Versioning.Builder;
 
 namespace XkliburSolutions.Shield.Api.Configuration.Extensions;
 
@@ -13,22 +13,46 @@ public static class ApiVersioningConfigurationExtensions
     /// </summary>
     /// <param name="serviceCollection">The IServiceCollection to add services to.</param>
     /// <returns>The modified <see cref="IServiceCollection"/>.</returns>
-    public static IServiceCollection AddApiVersioningConfiguration(this IServiceCollection serviceCollection)
+    public static IServiceCollection AddApiVersioningConfiguration(
+        this IServiceCollection serviceCollection)
     {
         serviceCollection.AddApiVersioning(options =>
         {
-            options.DefaultApiVersion = new ApiVersion(1, 0);
+            options.DefaultApiVersion = new ApiVersion(1);
             options.ReportApiVersions = true;
             options.AssumeDefaultVersionWhenUnspecified = true;
             options.ApiVersionReader = ApiVersionReader.Combine(
                 new UrlSegmentApiVersionReader(),
                 new HeaderApiVersionReader("X-Api-Version"));
-        }).AddVersionedApiExplorer(options =>
+        }).AddApiExplorer(options =>
         {
             options.GroupNameFormat = "'v'VVV";
             options.SubstituteApiVersionInUrl = true;
         });
 
         return serviceCollection;
+    }
+
+    /// <summary>
+    /// Configures API versioning for the specified route group.
+    /// </summary>
+    /// <param name="app">The web application.</param>
+    /// <param name="version">The API version.</param>
+    /// <returns>The route group builder with API versioning configured.</returns>
+    public static RouteGroupBuilder MapApiVersionGroup(
+        this WebApplication app,
+        ApiVersion version)
+    {
+        ApiVersionSet apiVersionSet = app.NewApiVersionSet()
+            .HasApiVersion(version)
+            .ReportApiVersions()
+            .Build();
+
+        RouteGroupBuilder apiVersionGroup = app
+            .MapGroup("api/v{version:apiVersion}")
+            .WithApiVersionSet(apiVersionSet)
+            .WithOpenApi();
+
+        return apiVersionGroup;
     }
 }

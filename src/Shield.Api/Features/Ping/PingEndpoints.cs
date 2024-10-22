@@ -13,8 +13,10 @@ public static class PingEndpoints
     {
         // Map a simple endpoint that responds with "pong" to a GET request at "/ping".
         routes.MapGet("/ping", Pong)
-              .WithName("Ping") // Name the endpoint "Ping".
-              .WithOpenApi();   // Include this endpoint in the OpenAPI documentation.
+            .MapToApiVersion(1)
+            .WithName("Ping") // Name the endpoint "Ping".
+            .WithOpenApi()   // Include this endpoint in the OpenAPI documentation.
+            .Produces(StatusCodes.Status200OK);
     }
 
     /// <summary>
