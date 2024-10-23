@@ -1,19 +1,73 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 using XkliburSolutions.Shield.CrossCutting.Configuration.Extensions;
 using XkliburSolutions.Shield.CrossCutting.ExceptionHandling;
 using XkliburSolutions.Shield.CrossCutting.Logging;
+using XkliburSolutions.Shield.CrossCutting.Services;
+using XkliburSolutions.Shield.Infrastructure.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 
-// Add authentication and authorization services.
-builder.Services.AddAuthenticationConfiguration(configuration);
-builder.Services.AddAuthorization();
-
 // Add services to the container.
 builder.Services.AddRazorPages();
 
+builder.Services.AddHttpClient<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IClaimsService, ClaimsService>();
+
+// Add authentication and authorization services.
+builder.Services.AddCustomAuthentication(
+    configuration,
+    new()
+    {
+        DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme,
+        DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme,
+        DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme,
+    },
+    new()
+    {
+        LoginPath = "/Account/Login",
+        AccessDeniedPath = "/Account/Login"
+    });
+
+builder.Services.AddCustomAuthorization(
+    CookieAuthenticationDefaults.AuthenticationScheme);
+
 // Use custom logging
 builder.UseCustomLogging();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Events = new CookieAuthenticationEvents
+    {
+        OnRedirectToLogin = ctx =>
+        {
+            if (ctx.Request.Path.StartsWithSegments("/api"))
+            {
+                ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            }
+            else
+            {
+                ctx.Response.Redirect(ctx.RedirectUri);
+            }
+            return Task.CompletedTask;
+        },
+        OnRedirectToAccessDenied = ctx =>
+        {
+            if (ctx.Request.Path.StartsWithSegments("/api"))
+            {
+                ctx.Response.StatusCode = StatusCodes.Status403Forbidden;
+            }
+            else
+            {
+                ctx.Response.Redirect(ctx.RedirectUri);
+            }
+            return Task.CompletedTask;
+        }
+    };
+});
+
 
 WebApplication app = builder.Build();
 
@@ -43,6 +97,7 @@ app.UseStaticFiles();
 // Add routing middleware to the request pipeline.
 app.UseRouting();
 
+app.UseAuthentication();
 // Add authorization middleware to the request pipeline.
 app.UseAuthorization();
 

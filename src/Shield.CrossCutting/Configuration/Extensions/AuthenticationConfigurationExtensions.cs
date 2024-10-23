@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,12 +18,16 @@ public static class AuthenticationConfigurationExtensions
     /// </summary>
     /// <param name="serviceCollection">The IServiceCollection to add services to.</param>
     /// <param name="configuration">The configuration manager to retrieve JWT settings from.</param>
+    /// <param name="authenticationOptions">Optional authentication options to use. Defaults to JWT Bearer if not provided.</param>
+    /// <param name="cookieAuthenticationOptions">Optional cookie authentication options to use.</param>
     /// <returns>The modified <see cref="IServiceCollection"/>.</returns>
-    public static IServiceCollection AddAuthenticationConfiguration(
+    public static IServiceCollection AddCustomAuthentication(
         this IServiceCollection serviceCollection,
-        ConfigurationManager configuration)
+        ConfigurationManager configuration,
+        AuthenticationOptions? authenticationOptions = null,
+        CookieAuthenticationOptions? cookieAuthenticationOptions = null)
     {
-        AuthenticationOptions authenticationOptions = new()
+        authenticationOptions ??= new()
         {
             DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme,
             DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme,
@@ -42,10 +47,10 @@ public static class AuthenticationConfigurationExtensions
                 ValidAudience = configuration["Jwt:Audience"],
                 ValidIssuer = configuration["Jwt:Issuer"],
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]!))
-            },
+            }
         };
 
-        return AddAuthenticationConfiguration(serviceCollection, authenticationOptions, jwtBearerOptions);
+        return AddCustomAuthentication(serviceCollection, authenticationOptions, jwtBearerOptions, cookieAuthenticationOptions);
     }
 
     /// <summary>
@@ -53,16 +58,30 @@ public static class AuthenticationConfigurationExtensions
     /// </summary>
     /// <param name="serviceCollection">The IServiceCollection to add services to.</param>
     /// <param name="authenticationOptions">The authentication options to use.</param>
-    /// <param name="jwtBearerOptions">The JWT Bearer options to use.</param>
+    /// <param name="jwtBearerOptions">Optional JWT Bearer options to use.</param>
+    /// <param name="cookieAuthenticationOptions">Optional cookie authentication options to use.</param>
     /// <returns>The modified <see cref="IServiceCollection"/>.</returns>
-    public static IServiceCollection AddAuthenticationConfiguration(
+    public static IServiceCollection AddCustomAuthentication(
         this IServiceCollection serviceCollection,
         AuthenticationOptions authenticationOptions,
-        JwtBearerOptions jwtBearerOptions)
+        JwtBearerOptions? jwtBearerOptions,
+        CookieAuthenticationOptions? cookieAuthenticationOptions)
     {
-        serviceCollection
-            .AddAuthentication(options => options = authenticationOptions)
-            .AddJwtBearer(options => options = jwtBearerOptions);
+        AuthenticationBuilder authBuilder = serviceCollection
+    .AddAuthentication(options => options = authenticationOptions);
+
+        if (cookieAuthenticationOptions != null)
+        {
+            authBuilder.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options =>
+            {
+                options = cookieAuthenticationOptions;
+            });
+        }
+
+        if (jwtBearerOptions != null)
+        {
+            authBuilder.AddJwtBearer(options => options = jwtBearerOptions);
+        }
 
         return serviceCollection;
     }

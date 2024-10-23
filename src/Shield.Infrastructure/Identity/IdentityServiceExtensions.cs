@@ -22,6 +22,7 @@ public static class IdentityServiceExtensions
         services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
         {
             PasswordPolicyService.ConfigurePasswordOptions(options.Password);
+            options.User.RequireUniqueEmail = false;
         })
         .AddEntityFrameworkStores<ApplicationDbContext>() // Use Entity Framework for storing identity data
         .AddDefaultTokenProviders(); // Add default token providers for password reset, email confirmation, etc.

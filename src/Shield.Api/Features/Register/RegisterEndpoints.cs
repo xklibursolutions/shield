@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using XkliburSolutions.Shield.CrossCutting.Entities;
+using XkliburSolutions.Shield.CrossCutting.Models;
 
 namespace XkliburSolutions.Shield.Api.Features.Register;
 
@@ -29,11 +30,11 @@ public static class RegisterEndpoints
     /// <param name="userManager">The user manager.</param>
     /// <returns>A task that represents the completion of the registration request.</returns>
     private static async Task<IResult> RegisterPost(
-        RegisterModel model,
+        RegisterInputModel model,
         UserManager<ApplicationUser> userManager)
     {
         //TODO: Change model - should be bigger
-        ApplicationUser user = new() { UserName = model.Email, Email = model.Email };
+        ApplicationUser user = new() { UserName = model.UserName };
         IdentityResult result = await userManager.CreateAsync(user, model.Password);
 
         if (result.Succeeded)

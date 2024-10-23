@@ -13,7 +13,8 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 
 // Configure the database context to use SQLite with the connection string from the configuration.
-builder.Services.AddCustomDatabaseContext(builder.Configuration);
+//builder.Services.AddCustomDatabaseContext(builder.Configuration);
+builder.Services.AddDbContext<ApplicationDbContext>();
 
 // Configure Identity services with custom password options and Entity Framework stores.
 builder.Services.AddCustomIdentity();
@@ -22,8 +23,8 @@ builder.Services.AddCustomIdentity();
 builder.Services.AddEndpointsApiExplorer();
 
 // Add authentication and authorization services.
-builder.Services.AddAuthenticationConfiguration(configuration);
-builder.Services.AddAuthorization();
+builder.Services.AddCustomAuthentication(configuration);
+builder.Services.AddCustomAuthorization();
 
 // Add API versioning and Swagger configuration services.
 builder.Services.AddApiVersioningConfiguration();

@@ -5,25 +5,22 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4F02EDAD-3EAA-4CA1-B3A8-69EF59D5FC4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shield.Api", "src\Shield.Api\Shield.Api.csproj", "{4D7EBFFA-A1AF-452E-9E61-7499314FFE74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shield.Api", "src\Shield.Api\Shield.Api.csproj", "{4D7EBFFA-A1AF-452E-9E61-7499314FFE74}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shield.Application", "src\Shield.Application\Shield.Application.csproj", "{4ACECB8B-79EC-4005-90B6-EE6670C1BD37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shield.Application", "src\Shield.Application\Shield.Application.csproj", "{4ACECB8B-79EC-4005-90B6-EE6670C1BD37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shield.CrossCutting", "src\Shield.CrossCutting\Shield.CrossCutting.csproj", "{4C451368-79E9-45E2-941E-49EC568A83D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shield.CrossCutting", "src\Shield.CrossCutting\Shield.CrossCutting.csproj", "{4C451368-79E9-45E2-941E-49EC568A83D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shield.Domain", "src\Shield.Domain\Shield.Domain.csproj", "{C1FF893B-162D-4AA3-A331-9414AC93D4B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shield.Domain", "src\Shield.Domain\Shield.Domain.csproj", "{C1FF893B-162D-4AA3-A331-9414AC93D4B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shield.Infrastructure", "src\Shield.Infrastructure\Shield.Infrastructure.csproj", "{E75D7903-1CBF-494A-9312-CA5D421F240C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shield.Infrastructure", "src\Shield.Infrastructure\Shield.Infrastructure.csproj", "{E75D7903-1CBF-494A-9312-CA5D421F240C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shield.Web", "src\Shield.Web\Shield.Web.csproj", "{C07B7777-36F4-45D5-93CF-25C67CB19DEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shield.Web", "src\Shield.Web\Shield.Web.csproj", "{C07B7777-36F4-45D5-93CF-25C67CB19DEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4D7EBFFA-A1AF-452E-9E61-7499314FFE74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -51,6 +48,9 @@ Global
 		{C07B7777-36F4-45D5-93CF-25C67CB19DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C07B7777-36F4-45D5-93CF-25C67CB19DEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4D7EBFFA-A1AF-452E-9E61-7499314FFE74} = {4F02EDAD-3EAA-4CA1-B3A8-69EF59D5FC4B}
 		{4ACECB8B-79EC-4005-90B6-EE6670C1BD37} = {4F02EDAD-3EAA-4CA1-B3A8-69EF59D5FC4B}
@@ -58,5 +58,8 @@ Global
 		{C1FF893B-162D-4AA3-A331-9414AC93D4B7} = {4F02EDAD-3EAA-4CA1-B3A8-69EF59D5FC4B}
 		{E75D7903-1CBF-494A-9312-CA5D421F240C} = {4F02EDAD-3EAA-4CA1-B3A8-69EF59D5FC4B}
 		{C07B7777-36F4-45D5-93CF-25C67CB19DEE} = {4F02EDAD-3EAA-4CA1-B3A8-69EF59D5FC4B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {921E4BA4-2889-47FC-A1FE-DAED8569B948}
 	EndGlobalSection
 EndGlobal

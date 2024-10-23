@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using XkliburSolutions.Shield.CrossCutting.Entities;
+using XkliburSolutions.Shield.CrossCutting.Models;
 using XkliburSolutions.Shield.CrossCutting.Security;
 
 namespace XkliburSolutions.Shield.Api.Features.Login;
@@ -33,18 +34,18 @@ public static class LoginEndpoints
     /// <param name="configuration">The IConfiguration with jwt settings.</param>
     /// <returns>An <see cref="IResult"/> indicating the outcome of the login operation.</returns>
     private static async Task<IResult> LoginPostAsync(
-        LoginModel model,
+        LoginInputModel model,
         SignInManager<ApplicationUser> signInManager,
         UserManager<ApplicationUser> userManager,
         IConfiguration configuration)
     {
         // Attempt to sign in the user with the provided email and password
-        SignInResult result = await signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+        SignInResult result = await signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
 
         if (result.Succeeded)
         {
             // If sign-in is successful, find the user by email
-            ApplicationUser? user = await userManager.FindByEmailAsync(model.Email);
+            ApplicationUser? user = await userManager.FindByNameAsync(model.UserName);
             // Generate a JWT token for the authenticated user
             string token = new JwtTokenGenerator(configuration)
                 .GenerateJwtToken(user!);

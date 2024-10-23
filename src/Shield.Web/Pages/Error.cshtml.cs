@@ -10,7 +10,6 @@ namespace XkliburSolutions.Shield.Web.Pages;
 /// <remarks>
 /// Initializes a new instance of the <see cref="ErrorModel"/> class.
 /// </remarks>
-/// <param name="logger">The logger instance.</param>
 [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 [IgnoreAntiforgeryToken]
 public class ErrorModel() : PageModel

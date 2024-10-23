@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using XkliburSolutions.Shield.CrossCutting.Entities;
 
 namespace XkliburSolutions.Shield.Infrastructure.Repositories;
@@ -15,7 +16,7 @@ namespace XkliburSolutions.Shield.Infrastructure.Repositories;
 /// The options include configurations such as the database provider, connection string, and other settings
 /// that are necessary for the context to interact with the database.
 /// </remarks>
-public class ApplicationDbContext(DbContextOptions options)
+public class ApplicationDbContext(DbContextOptions options, IConfiguration configuration)
     : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>(options)
 {
     /// <summary>
@@ -45,5 +46,17 @@ public class ApplicationDbContext(DbContextOptions options)
         builder.Entity<ApplicationRole>()
             .HasIndex(r => r.Name)
             .IsUnique();
+    }
+
+    /// <summary>
+    /// Configures the database context to use a SQLite database with the connection string
+    /// specified in the application configuration.
+    /// </summary>
+    /// <param name="optionsBuilder">The options builder used to configure the context.</param>
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        string connectionString = configuration.GetConnectionString("DefaultConnection")!;
+
+        optionsBuilder.UseSqlite(connectionString);
     }
 }
