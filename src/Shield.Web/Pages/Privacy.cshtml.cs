@@ -8,10 +8,8 @@ namespace XkliburSolutions.Shield.Web.Pages;
 /// <remarks>
 /// Initializes a new instance of the <see cref="PrivacyModel"/> class.
 /// </remarks>
-/// <param name="logger">The logger instance.</param>
-public class PrivacyModel(ILogger<PrivacyModel> logger) : PageModel
+public class PrivacyModel() : PageModel
 {
-    private readonly ILogger<PrivacyModel> _logger = logger;
 
     /// <summary>
     /// Handles GET requests.
