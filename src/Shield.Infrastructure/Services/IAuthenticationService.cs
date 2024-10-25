@@ -1,6 +1,5 @@
 ﻿using System.Net;
-using Microsoft.AspNetCore.Http;
-using XkliburSolutions.Shield.CrossCutting.Models;
+using XkliburSolutions.Shield.CrossCutting.DTOs;
 
 namespace XkliburSolutions.Shield.Infrastructure.Services;
 

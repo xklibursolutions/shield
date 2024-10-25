@@ -3,7 +3,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using XkliburSolutions.Shield.CrossCutting.Entities;
 
 namespace XkliburSolutions.Shield.CrossCutting.Security;
 
@@ -21,13 +20,13 @@ public class JwtTokenGenerator(IConfiguration configuration)
     /// <summary>
     /// Generates a JWT token for the specified user.
     /// </summary>
-    /// <param name="user">The user for whom to generate the token.</param>
+    /// <param name="userName">The user name for whom to generate the token.</param>
     /// <returns>The generated JWT token.</returns>
-    public string GenerateJwtToken(ApplicationUser user)
+    public string GenerateJwtToken(string userName)
     {
         Claim[] claims =
         [
-            new Claim(JwtRegisteredClaimNames.Sub, user.UserName!),
+            new Claim(JwtRegisteredClaimNames.Sub, userName),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         ];
 

@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using XkliburSolutions.Shield.CrossCutting.Models;
 using XkliburSolutions.Shield.Infrastructure.Services;
 using System.Net;
+using XkliburSolutions.Shield.CrossCutting.DTOs;
 
 namespace XkliburSolutions.Shield.Web.Pages.Account;
 
@@ -15,7 +15,7 @@ public class RegisterModel(IAuthenticationService authenticationService) : PageM
     /// Gets or sets the register input model.
     /// </summary>
     [BindProperty]
-    public RegisterInputModel? Input { get; set; }
+    public RegisterInputModel Input { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the return URL.

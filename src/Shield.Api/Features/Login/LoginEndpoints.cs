@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using XkliburSolutions.Shield.CrossCutting.Entities;
-using XkliburSolutions.Shield.CrossCutting.Models;
+using XkliburSolutions.Shield.CrossCutting.DTOs;
 using XkliburSolutions.Shield.CrossCutting.Security;
+using XkliburSolutions.Shield.Domain.Entities;
 
 namespace XkliburSolutions.Shield.Api.Features.Login;
 
@@ -39,16 +39,26 @@ public static class LoginEndpoints
         UserManager<ApplicationUser> userManager,
         IConfiguration configuration)
     {
-        // Attempt to sign in the user with the provided email and password
-        SignInResult result = await signInManager.PasswordSignInAsync(model.UserName, model.Password, false, false);
+        // Determine if the input is an email or username
+        ApplicationUser? user = null;
+        user = await userManager.FindByEmailAsync(model.UserName!);
 
-        if (result.Succeeded)
+        user ??= await userManager.FindByNameAsync(model.UserName!);
+
+        if (user == null)
         {
-            // If sign-in is successful, find the user by email
-            ApplicationUser? user = await userManager.FindByNameAsync(model.UserName);
+            // If user is not found, return an unauthorized response
+            return Results.Unauthorized();
+        }
+
+        // Attempt to sign in the user with the provided username/email and password
+        SignInResult result = await signInManager.PasswordSignInAsync(user.UserName!, model.Password!, model.RememberMe, true);
+
+        if (result.Succeeded && !result.IsLockedOut)
+        {
             // Generate a JWT token for the authenticated user
             string token = new JwtTokenGenerator(configuration)
-                .GenerateJwtToken(user!);
+                .GenerateJwtToken(user.UserName!);
 
             // Return the generated token in the response
             return Results.Ok(new { Token = token }); //TODO: create real response model
@@ -57,4 +67,5 @@ public static class LoginEndpoints
         // If sign-in fails, return an unauthorized response
         return Results.Unauthorized();
     }
+
 }

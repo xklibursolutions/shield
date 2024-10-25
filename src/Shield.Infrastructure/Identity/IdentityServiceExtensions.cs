@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using XkliburSolutions.Shield.CrossCutting.Entities;
 using XkliburSolutions.Shield.CrossCutting.Security;
+using XkliburSolutions.Shield.Domain.Entities;
 using XkliburSolutions.Shield.Infrastructure.Repositories;
 
 namespace XkliburSolutions.Shield.Infrastructure.Identity;
@@ -22,7 +22,16 @@ public static class IdentityServiceExtensions
         services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
         {
             PasswordPolicyService.ConfigurePasswordOptions(options.Password);
-            options.User.RequireUniqueEmail = false;
+            options.User.RequireUniqueEmail = true;
+
+            //TODO: Must be customizable
+            options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+            options.Lockout.MaxFailedAccessAttempts = 5;
+            options.Lockout.AllowedForNewUsers = true;
+
+            //options.SignIn.RequireConfirmedAccount = true;
+            //options.SignIn.RequireConfirmedPhoneNumber = true;
+            //options.SignIn.RequireConfirmedEmail = true;
         })
         .AddEntityFrameworkStores<ApplicationDbContext>() // Use Entity Framework for storing identity data
         .AddDefaultTokenProviders(); // Add default token providers for password reset, email confirmation, etc.

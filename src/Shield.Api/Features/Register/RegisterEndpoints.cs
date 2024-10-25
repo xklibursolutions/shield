@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using XkliburSolutions.Shield.CrossCutting.Entities;
-using XkliburSolutions.Shield.CrossCutting.Models;
+using XkliburSolutions.Shield.CrossCutting.DTOs;
+using XkliburSolutions.Shield.Domain.Entities;
+using XkliburSolutions.Shield.Domain.Enums;
 
 namespace XkliburSolutions.Shield.Api.Features.Register;
 
@@ -33,9 +34,14 @@ public static class RegisterEndpoints
         RegisterInputModel model,
         UserManager<ApplicationUser> userManager)
     {
-        //TODO: Change model - should be bigger
-        ApplicationUser user = new() { UserName = model.UserName };
-        IdentityResult result = await userManager.CreateAsync(user, model.Password);
+        ApplicationUser user = new()
+        {
+            UserName = model.UserName,
+            Email = model.Email,
+            Status = UserStatus.Active
+        };
+
+        IdentityResult result = await userManager.CreateAsync(user, model.Password!);
 
         if (result.Succeeded)
         {
