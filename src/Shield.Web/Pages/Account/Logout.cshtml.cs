@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using XkliburSolutions.Shield.CrossCutting.Services;
 
@@ -13,8 +14,10 @@ public class LogoutModel(IClaimsService claimsService) : PageModel
     /// Handles GET requests to log out the user.
     /// </summary>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    public async Task OnGetAsync()
+    public async Task<IActionResult> OnGetAsync()
     {
         await claimsService.SignOutAsync(HttpContext, CookieAuthenticationDefaults.AuthenticationScheme);
+
+        return RedirectToPage("/Account/Login", new { logout = true });
     }
 }

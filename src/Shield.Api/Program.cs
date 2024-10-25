@@ -1,13 +1,13 @@
+using Asp.Versioning;
 using XkliburSolutions.Shield.Api.Configuration.Extensions;
+using XkliburSolutions.Shield.Api.Features.Login;
 using XkliburSolutions.Shield.Api.Features.Ping;
+using XkliburSolutions.Shield.Api.Features.Register;
 using XkliburSolutions.Shield.CrossCutting.Configuration.Extensions;
 using XkliburSolutions.Shield.CrossCutting.ExceptionHandling;
+using XkliburSolutions.Shield.CrossCutting.Logging;
 using XkliburSolutions.Shield.Infrastructure.Identity;
 using XkliburSolutions.Shield.Infrastructure.Repositories;
-using XkliburSolutions.Shield.CrossCutting.Logging;
-using XkliburSolutions.Shield.Api.Features.Register;
-using Asp.Versioning;
-using XkliburSolutions.Shield.Api.Features.Login;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;

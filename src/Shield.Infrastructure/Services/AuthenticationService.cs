@@ -1,8 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text;
-using XkliburSolutions.Shield.CrossCutting.Models;
-using Microsoft.AspNetCore.Http;
 using System.Net;
+using XkliburSolutions.Shield.CrossCutting.DTOs;
 
 namespace XkliburSolutions.Shield.Infrastructure.Services;
 

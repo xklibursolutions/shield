@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Reflection.Emit;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using XkliburSolutions.Shield.CrossCutting.Entities;
+using XkliburSolutions.Shield.CrossCutting.Security;
+using XkliburSolutions.Shield.Domain.Entities;
 
 namespace XkliburSolutions.Shield.Infrastructure.Repositories;
 
@@ -30,7 +32,7 @@ public class ApplicationDbContext(DbContextOptions options, IConfiguration confi
     {
         base.OnModelCreating(builder);
 
-        builder.Entity<IdentityRole>().ToTable("Roles");
+        builder.Entity<ApplicationRole>().ToTable("Roles");
         builder.Entity<ApplicationUser>().ToTable("Users");
         builder.Entity<IdentityUserRole<Guid>>().ToTable("UserRoles");
         builder.Entity<IdentityUserClaim<Guid>>().ToTable("UserClaims");
@@ -38,14 +40,86 @@ public class ApplicationDbContext(DbContextOptions options, IConfiguration confi
         builder.Entity<IdentityUserLogin<Guid>>().ToTable("UserLogins");
         builder.Entity<IdentityUserToken<Guid>>().ToTable("UserTokens");
 
-        // Ensure unique constraints
-        builder.Entity<ApplicationUser>()
-            .HasIndex(u => u.UserName)
-            .IsUnique();
+        builder.Entity<ApplicationUser>().OwnsMany(o => o.Addresses);
+
+        // Seed roles
+        Guid adminRoleId = Guid.NewGuid();
+        Guid userRoleId = Guid.NewGuid();
+
+        List<IdentityRole<Guid>> roles =
+        [
+            new IdentityRole<Guid> { Id = adminRoleId, Name = "Administrator", NormalizedName = "ADMINISTRATOR" },
+            new IdentityRole<Guid> { Id = userRoleId, Name = "User", NormalizedName = "USER" },
+        ];
 
         builder.Entity<ApplicationRole>()
-            .HasIndex(r => r.Name)
-            .IsUnique();
+            .HasData(roles);
+
+        // Seed role claims
+        List<IdentityRoleClaim<Guid>> roleClaims =
+        [
+            // Administrator role claims
+            new IdentityRoleClaim<Guid> { Id = 1, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.UserManagement.Create },
+            new IdentityRoleClaim<Guid> { Id = 2, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.UserManagement.Read },
+            new IdentityRoleClaim<Guid> { Id = 3, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.UserManagement.Update },
+            new IdentityRoleClaim<Guid> { Id = 4, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.UserManagement.Delete },
+            new IdentityRoleClaim<Guid> { Id = 5, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.UserManagement.ManageRoles },
+            new IdentityRoleClaim<Guid> { Id = 6, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.UserManagement.ManageClaims },
+            new IdentityRoleClaim<Guid> { Id = 7, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.UserManagement.Lock },
+            new IdentityRoleClaim<Guid> { Id = 8, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.UserManagement.Unlock },
+            new IdentityRoleClaim<Guid> { Id = 9, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.UserManagement.ResetPassword },
+            new IdentityRoleClaim<Guid> { Id = 10, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.RoleManagement.Create },
+            new IdentityRoleClaim<Guid> { Id = 11, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.RoleManagement.Read },
+            new IdentityRoleClaim<Guid> { Id = 12, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.RoleManagement.Update },
+            new IdentityRoleClaim<Guid> { Id = 13, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.RoleManagement.Delete },
+            new IdentityRoleClaim<Guid> { Id = 14, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.RoleManagement.ManageClaims },
+            new IdentityRoleClaim<Guid> { Id = 15, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.Security.EnableTwoFactorAuthentication },
+            new IdentityRoleClaim<Guid> { Id = 16, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.Security.DisableTwoFactorAuthentication },
+            new IdentityRoleClaim<Guid> { Id = 17, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.Security.ViewLoginHistory },
+            new IdentityRoleClaim<Guid> { Id = 19, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.AccessControl.Grant },
+            new IdentityRoleClaim<Guid> { Id = 20, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.AccessControl.Revoke },
+            new IdentityRoleClaim<Guid> { Id = 21, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.AccessControl.ViewLogs },
+            new IdentityRoleClaim<Guid> { Id = 22, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.ApplicationSettings.View },
+            new IdentityRoleClaim<Guid> { Id = 23, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.ApplicationSettings.Update },
+            new IdentityRoleClaim<Guid> { Id = 24, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.ApplicationSettings.ManageAPIKeys },
+            new IdentityRoleClaim<Guid> { Id = 31, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.Analytics.View },
+            new IdentityRoleClaim<Guid> { Id = 32, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.Analytics.Generate },
+            new IdentityRoleClaim<Guid> { Id = 33, RoleId = adminRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.Analytics.Export },
+
+            // User role claims
+            new IdentityRoleClaim<Guid> { Id = 37, RoleId = userRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.UserManagement.Read },
+            new IdentityRoleClaim<Guid> { Id = 38, RoleId = userRoleId, ClaimType = Permissions.ClaimType, ClaimValue = Permissions.UserManagement.Update },
+        ];
+
+        builder.Entity<IdentityRoleClaim<Guid>>()
+            .HasData(roleClaims);
+
+        // Seed administrator user
+        Guid adminUserId = Guid.NewGuid();
+        PasswordHasher<ApplicationUser> hasher = new();
+
+        ApplicationUser adminUser = new()
+        {
+            Id = adminUserId,
+            UserName = "admin",
+            NormalizedUserName = "ADMIN",
+            Email = "opencode@xklibursolutions.io",
+            NormalizedEmail = "OPENCODE@XKLIBURSOLUTIONS.IO",
+            EmailConfirmed = true,
+            PasswordHash = hasher.HashPassword(null!, "admin"),
+            SecurityStamp = string.Empty,
+        };
+
+        builder.Entity<ApplicationUser>()
+            .HasData(adminUser);
+
+        // Assign administrator role to admin user
+        builder.Entity<IdentityUserRole<Guid>>()
+            .HasData(new IdentityUserRole<Guid>
+        {
+            RoleId = adminRoleId,
+            UserId = adminUserId
+        });
     }
 
     /// <summary>

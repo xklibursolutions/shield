@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using XkliburSolutions.Shield.CrossCutting.Models;
+using XkliburSolutions.Shield.CrossCutting.DTOs;
 using XkliburSolutions.Shield.CrossCutting.Services;
 using XkliburSolutions.Shield.Infrastructure.Services;
 
@@ -13,10 +13,15 @@ namespace XkliburSolutions.Shield.Web.Pages.Account;
 public class LoginModel(IAuthenticationService authenticationService, IClaimsService claimsService) : PageModel
 {
     /// <summary>
+    /// Gets or sets the logged out state.
+    /// </summary>
+    public bool IsLoggedOut { get; set; }
+
+    /// <summary>
     /// Gets or sets the login input model.
     /// </summary>
     [BindProperty]
-    public LoginInputModel? Input { get; set; }
+    public LoginInputModel Input { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the return URL.
@@ -27,9 +32,13 @@ public class LoginModel(IAuthenticationService authenticationService, IClaimsSer
     /// Handles GET requests to the login page.
     /// </summary>
     /// <param name="returnUrl">The return URL after a successful login.</param>
-    public async Task OnGetAsync(string? returnUrl = null)
+    public void OnGetAsync(bool? logout = false, string? returnUrl = null)
     {
-        await claimsService.SignOutAsync(HttpContext, CookieAuthenticationDefaults.AuthenticationScheme);
+        if (logout.HasValue && logout.Value)
+        {
+            IsLoggedOut = true;
+        }
+
         ReturnUrl = returnUrl;
     }
 
@@ -51,7 +60,7 @@ public class LoginModel(IAuthenticationService authenticationService, IClaimsSer
 
             if (token != null)
             {
-                await claimsService.SignInAsync(HttpContext, Input.UserName, token, Input.RememberMe);
+                await claimsService.SignInAsync(HttpContext, Input.UserName!, token, Input.RememberMe);
                 return LocalRedirect(returnUrl ?? "/");
             }
         }
