@@ -1,0 +1,20 @@
+﻿@page
+@model XkliburSolutions.Shield.Web.Pages.Account.ConfirmEmailModel
+@{
+}
+
+<h1>Confirmation</h1>
+@{
+    if (@Model.DisplayConfirmAccountLink)
+    {
+        <p>
+            <a href="@Model.CallbackUrl" class="text-decoration-none">Confirm Email</a>
+        </p>
+    }
+    else
+    {
+        <p>
+            Check your email.
+        </p>
+    }
+}

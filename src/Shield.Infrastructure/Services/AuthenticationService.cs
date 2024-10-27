@@ -2,6 +2,7 @@
 using System.Text;
 using System.Net;
 using XkliburSolutions.Shield.CrossCutting.DTOs;
+using System.Net.Http.Json;
 
 namespace XkliburSolutions.Shield.Infrastructure.Services;
 
@@ -39,11 +40,28 @@ public class AuthenticationService(HttpClient httpClient) : IAuthenticationServi
     }
 
     /// <summary>
+    /// Confirms a user's account using their user ID and confirmation code.
+    /// </summary>
+    /// <param name="input">The validate email input model containing user id and validation code.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a boolean indicating whether the account confirmation was successful.</returns>
+    public async Task<bool> ValidateEmailAsync(ValidateEmailInputModel input)
+    {
+        StringContent content = new(
+            JsonSerializer.Serialize(input),
+            Encoding.UTF8, "application/json");
+
+        HttpResponseMessage response = await _httpClient.PostAsync(
+            "https://localhost:7064/api/v1/account/validate",
+            content);
+
+        return response.IsSuccessStatusCode;
+    }
+    /// <summary>
     /// Registers a new user based on the provided registration input model.
     /// </summary>
     /// <param name="input">The registration input model containing user details.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the registration token if registration is successful; otherwise, null.</returns>
-    public async Task<HttpStatusCode> RegisterAsync(RegisterInputModel input)
+    public async Task<RegisterOutputModel?> RegisterAsync(RegisterInputModel input)
     {
         StringContent content = new(
             JsonSerializer.Serialize(input),
@@ -53,6 +71,11 @@ public class AuthenticationService(HttpClient httpClient) : IAuthenticationServi
             "https://localhost:7064/api/v1/account/register",
             content);
 
-        return response.StatusCode;
+        if (response.IsSuccessStatusCode && response.Content != null)
+        {
+            return await response.Content.ReadFromJsonAsync<RegisterOutputModel>();
+        }
+
+        return null;
     }
 }

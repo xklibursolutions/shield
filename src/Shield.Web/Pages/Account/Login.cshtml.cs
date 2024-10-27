@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using XkliburSolutions.Shield.CrossCutting.DTOs;
 using XkliburSolutions.Shield.CrossCutting.Services;
@@ -15,7 +14,12 @@ public class LoginModel(IAuthenticationService authenticationService, IClaimsSer
     /// <summary>
     /// Gets or sets the logged out state.
     /// </summary>
-    public bool IsLoggedOut { get; set; }
+    public bool? IsLoggedOut { get; set; } = null;
+
+    /// <summary>
+    /// Gets or sets whether the account is confirmed or not.
+    /// </summary>
+    public bool? IsAccountConfirmed { get; set; } = null;
 
     /// <summary>
     /// Gets or sets the login input model.
@@ -31,12 +35,19 @@ public class LoginModel(IAuthenticationService authenticationService, IClaimsSer
     /// <summary>
     /// Handles GET requests to the login page.
     /// </summary>
+    /// <param name="isAccountConfirmed">Gets or sets a value indicating whether the account is confirmed.</param>
+    /// <param name="logout">The logout action is checked.</param>
     /// <param name="returnUrl">The return URL after a successful login.</param>
-    public void OnGetAsync(bool? logout = false, string? returnUrl = null)
+    public void OnGetAsync(bool? isAccountConfirmed = null, bool? logout = null, string? returnUrl = null)
     {
         if (logout.HasValue && logout.Value)
         {
             IsLoggedOut = true;
+        }
+
+        if (isAccountConfirmed.HasValue)
+        {
+            IsAccountConfirmed = isAccountConfirmed.Value;
         }
 
         ReturnUrl = returnUrl;
