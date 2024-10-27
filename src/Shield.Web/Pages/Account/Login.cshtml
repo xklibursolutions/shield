@@ -22,12 +22,29 @@
                 <div class="text-center">
                     <img src="~/images/logo.svg" alt="Logo" class="mb-4 text-center" style="max-width: 150px;">
                 </div>
-                @if (Model.IsLoggedOut)
+                @if (Model.IsLoggedOut.HasValue && Model.IsLoggedOut.Value)
                 {
                     <div class="alert alert-info" role="alert">
                         You have been logged out successfully.
                     </div>
                 }
+
+                @if (Model.IsAccountConfirmed.HasValue)
+                {
+                    if (Model.IsAccountConfirmed.Value)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            Your account is confirmed.
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            There is an error confirming your account.
+                        </div>
+                    }
+                }
+
                 <h2 class="text-center mb-4">Sign in</h2>
                 
                 <form method="post">

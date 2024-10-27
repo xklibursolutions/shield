@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using XkliburSolutions.Shield.Infrastructure.Services;
-using System.Net;
 using XkliburSolutions.Shield.CrossCutting.DTOs;
 
 namespace XkliburSolutions.Shield.Web.Pages.Account;
@@ -45,11 +44,36 @@ public class RegisterModel(IAuthenticationService authenticationService) : PageM
 
         if (Input != null)
         {
-            HttpStatusCode response = await authenticationService.RegisterAsync(Input);
+            RegisterOutputModel? response = await authenticationService.RegisterAsync(Input);
 
-            if (response == HttpStatusCode.OK)
+            if (response != null)
             {
-                return LocalRedirect(returnUrl ?? "/Account/Login");
+                returnUrl ??= "/Account/Login";
+
+                if (response.RequiredConfirmedAccount)
+                {
+                    if (response.DisplayConfirmAccountLink)
+                    {
+                        string? callbackUrl = Url.Page(
+                        "/Account/ConfirmEmail",
+                        pageHandler: null,
+                        values: new {
+                            userId = response.UserId!,
+                            code = response.ValidationCode!,
+                            returnUrl = returnUrl },
+                        protocol: Request.Scheme);
+
+                        return RedirectToPage("/Account/ConfirmEmail", new { displayConfirmAccountLink = true, callbackUrl });
+                    }
+                    else
+                    {
+                        return RedirectToPage("/Account/ConfirmEmail");
+                    }
+                }
+                else
+                {
+                    return RedirectToPage("/Account/Login", new { confirmAccount = true });
+                }
             }
         }
 

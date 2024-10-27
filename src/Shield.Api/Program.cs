@@ -3,6 +3,7 @@ using XkliburSolutions.Shield.Api.Configuration.Extensions;
 using XkliburSolutions.Shield.Api.Features.Login;
 using XkliburSolutions.Shield.Api.Features.Ping;
 using XkliburSolutions.Shield.Api.Features.Register;
+using XkliburSolutions.Shield.CrossCutting.Configuration;
 using XkliburSolutions.Shield.CrossCutting.Configuration.Extensions;
 using XkliburSolutions.Shield.CrossCutting.ExceptionHandling;
 using XkliburSolutions.Shield.CrossCutting.Logging;
@@ -12,12 +13,16 @@ using XkliburSolutions.Shield.Infrastructure.Repositories;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 
+IConfigurationSection appSettingsSection = configuration.GetSection("ApplicationSettings");
+builder.Services.Configure<ApplicationSettings>(appSettingsSection);
+ApplicationSettings applicationSettings = appSettingsSection.Get<ApplicationSettings>()!;
+
 // Configure the database context to use SQLite with the connection string from the configuration.
 //builder.Services.AddCustomDatabaseContext(builder.Configuration);
 builder.Services.AddDbContext<ApplicationDbContext>();
 
 // Configure Identity services with custom password options and Entity Framework stores.
-builder.Services.AddCustomIdentity();
+builder.Services.AddCustomIdentity(applicationSettings.RegistrationSettings!);
 
 // Add services for API endpoint exploration.
 builder.Services.AddEndpointsApiExplorer();

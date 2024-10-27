@@ -32,7 +32,9 @@ public class ClaimsService : IClaimsService
         AuthenticationProperties authProperties = new()
         {
             IsPersistent = isPersistent,
-            //TODO: Add expiration
+            IssuedUtc = DateTime.UtcNow,
+            ExpiresUtc = DateTime.UtcNow.AddMinutes(30),
+            AllowRefresh = true,
         };
 
         await httpContext.SignInAsync(

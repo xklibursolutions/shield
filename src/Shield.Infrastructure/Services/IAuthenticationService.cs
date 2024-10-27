@@ -20,6 +20,13 @@ public interface IAuthenticationService
     /// </summary>
     /// <param name="input">The registration input model containing user details.</param>
     /// <returns>A task that represents the asynchronous operation. The task result contains the registration token if registration is successful; otherwise, null.</returns>
-    Task<HttpStatusCode> RegisterAsync(RegisterInputModel input);
+    Task<RegisterOutputModel?> RegisterAsync(RegisterInputModel input);
 
+
+    /// <summary>
+    /// Confirms a user's account using their user ID and confirmation code.
+    /// </summary
+    /// <param name="input">The validate email input model containing user id and validation code.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains a boolean indicating whether the account confirmation was successful.</returns>
+    Task<bool> ValidateEmailAsync(ValidateEmailInputModel input);
 }

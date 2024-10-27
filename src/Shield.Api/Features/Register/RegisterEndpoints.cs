@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Text;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using XkliburSolutions.Shield.CrossCutting.DTOs;
 using XkliburSolutions.Shield.Domain.Entities;
 using XkliburSolutions.Shield.Domain.Enums;
@@ -22,6 +24,14 @@ public static class RegisterEndpoints
             .WithOpenApi()
             .Produces(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status200OK);
+
+        routes.MapPost("/account/validate", ValidateEmailPost)
+            .MapToApiVersion(1)
+            .WithName("Validate")
+            .WithOpenApi()
+            .Produces(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status404NotFound);
     }
 
     /// <summary>
@@ -45,11 +55,67 @@ public static class RegisterEndpoints
 
         if (result.Succeeded)
         {
-            // TODO: Localize and log and create final response
-            return Results.Ok(new { Message = "User registered successfully" });
+            bool requireConfirmedAccount = userManager.Options.SignIn.RequireConfirmedAccount;
+
+            if (requireConfirmedAccount)
+            {
+                string userId = await userManager.GetUserIdAsync(user);
+                string code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                string encodedCode = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+
+                RegisterOutputModel output = new RegisterOutputModel
+                {
+                    UserId = userId,
+                    ValidationCode = encodedCode,
+                    RequiredConfirmedAccount = true,
+                    DisplayConfirmAccountLink = false
+                };
+
+                if (userManager.SupportsUserEmail)
+                {
+                    //TODO: Add send email mechanism and fallback to link
+
+                    // TODO: Localize and log and create final response
+                    //return Results.Ok();
+                }
+
+                output.DisplayConfirmAccountLink = true;
+                return Results.Ok(output);
+            }
+            else
+            {
+                // TODO: Localize and log and create final response
+                return Results.Ok(new RegisterOutputModel
+                {
+                    RequiredConfirmedAccount = false,
+                    DisplayConfirmAccountLink = false
+                });
+            }
         }
 
         //TODO: Add logs
         return Results.BadRequest(result.Errors);
+    }
+
+    private static async Task<IResult> ValidateEmailPost(
+        ValidateEmailInputModel model,
+        UserManager<ApplicationUser> userManager)
+    {
+        // Find the user by their ID.
+        ApplicationUser? user = await userManager.FindByIdAsync(model.UserId);
+        if (user == null)
+        {
+            // If the user is not found, return a NotFound result.
+            // TODO: Add logs
+            return Results.NotFound();
+        }
+
+        // Decode the confirmation code.
+        string code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(model.ValidationCode));
+        //TODO: Transfer the below to an api call
+        // Confirm the user's email.
+        IdentityResult result = await userManager.ConfirmEmailAsync(user, code);
+
+        return result.Succeeded ? Results.Ok() : Results.BadRequest();
     }
 }
