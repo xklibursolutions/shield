@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
+using Microsoft.FeatureManagement;
 using XkliburSolutions.Shield.CrossCutting.Configuration.Extensions;
 using XkliburSolutions.Shield.CrossCutting.ExceptionHandling;
 using XkliburSolutions.Shield.CrossCutting.Logging;
@@ -15,6 +16,8 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddHttpClient<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IClaimsService, ClaimsService>();
+
+builder.Services.AddFeatureManagement();
 
 // Add authentication and authorization services.
 builder.Services.AddCustomAuthentication(

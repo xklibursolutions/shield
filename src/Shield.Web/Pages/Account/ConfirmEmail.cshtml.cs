@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.FeatureManagement.Mvc;
 using XkliburSolutions.Shield.CrossCutting.DTOs;
 using XkliburSolutions.Shield.Infrastructure.Services;
 
@@ -8,6 +9,7 @@ namespace XkliburSolutions.Shield.Web.Pages.Account;
 /// <summary>
 /// Page model for confirming a user's account.
 /// </summary>
+[FeatureGate("Registration")]
 public class ConfirmEmailModel(IAuthenticationService authenticationService) : PageModel
 {
     /// <summary>
