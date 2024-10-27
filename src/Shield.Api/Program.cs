@@ -1,10 +1,11 @@
 using Asp.Versioning;
+using Microsoft.FeatureManagement;
 using XkliburSolutions.Shield.Api.Configuration.Extensions;
 using XkliburSolutions.Shield.Api.Features.Login;
 using XkliburSolutions.Shield.Api.Features.Ping;
 using XkliburSolutions.Shield.Api.Features.Register;
-using XkliburSolutions.Shield.CrossCutting.Configuration;
 using XkliburSolutions.Shield.CrossCutting.Configuration.Extensions;
+using XkliburSolutions.Shield.CrossCutting.Configuration;
 using XkliburSolutions.Shield.CrossCutting.ExceptionHandling;
 using XkliburSolutions.Shield.CrossCutting.Logging;
 using XkliburSolutions.Shield.Infrastructure.Identity;
@@ -34,6 +35,8 @@ builder.Services.AddCustomAuthorization();
 // Add API versioning and Swagger configuration services.
 builder.Services.AddApiVersioningConfiguration();
 builder.Services.AddSwaggerConfiguration();
+
+builder.Services.AddFeatureManagement();
 
 // Use custom logging
 builder.UseCustomLogging();

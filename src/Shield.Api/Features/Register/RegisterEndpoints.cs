@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.FeatureManagement.Mvc;
 using XkliburSolutions.Shield.CrossCutting.DTOs;
 using XkliburSolutions.Shield.Domain.Entities;
 using XkliburSolutions.Shield.Domain.Enums;
@@ -40,6 +41,7 @@ public static class RegisterEndpoints
     /// <param name="model">The registration model.</param>
     /// <param name="userManager">The user manager.</param>
     /// <returns>A task that represents the completion of the registration request.</returns>
+    [FeatureGate("Registration")]
     private static async Task<IResult> RegisterPost(
         RegisterInputModel model,
         UserManager<ApplicationUser> userManager)

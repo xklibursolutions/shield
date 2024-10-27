@@ -2,12 +2,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using XkliburSolutions.Shield.Infrastructure.Services;
 using XkliburSolutions.Shield.CrossCutting.DTOs;
+using Microsoft.FeatureManagement.Mvc;
 
 namespace XkliburSolutions.Shield.Web.Pages.Account;
 
 /// <summary>
 /// Represents the model for the registration page.
 /// </summary>
+[FeatureGate("Registration")]
 public class RegisterModel(IAuthenticationService authenticationService) : PageModel
 {
     /// <summary>
