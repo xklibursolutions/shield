@@ -27,39 +27,32 @@ The project is structured into several layers to promote separation of concerns 
 
 ```text
 src/
-├── XkliburSolutions.SHIELD.Api/
-│   ├── Controllers/
-│   ├── Models/
-│   ├── DTOs/
+├── Shield.Api/
+│   ├── Configuration/
+│   ├── Features
 │   └── Program.cs
-├── XkliburSolutions.SHIELD.Application/
-│   ├── Services/
-│   ├── Interfaces/
-│   └── DTOs/
-├── XkliburSolutions.SHIELD.Domain/
+├── Shield.Application/
+├── Shield.Domain/
 │   ├── Entities/
-│   ├── Services/
-│   ├── Aggregates/
-│   └── Interfaces/
-├── XkliburSolutions.SHIELD.Infrastructure/
+│   ├── Enmums/
+├── Shield.Infrastructure/
 │   ├── Repositories/
 │   ├── Identity/
-│   ├── NoSQL/
-│   └── Logging/
-├── XkliburSolutions.SHIELD.Web/
+│   ├── Migrations/
+│   └── Services/
+├── Shield.Web/
 │   ├── Pages/
 │   │   ├── Account/
-│   │   │   ├── Login.cshtml
-│   │   │   ├── Register.cshtml
-│   │   │   ├── Profile.cshtml
-│   │   │   └── Manage.cshtml
-│   ├── wwwroot/
-│   ├── _ViewImports.cshtml
-│   ├── _ViewStart.cshtml
+|   |   ├── _ViewImports.cshtml
+│   |   ├── _ViewStart.cshtml
+│   |   └── wwwroot/
 │   └── Program.cs
-└── XkliburSolutions.SHIELD.CrossCutting/
+└── Shield.CrossCutting/
+    ├── Configuration/
+    ├── DTOs/
     ├── Logging/
     ├── Security/
+    ├── Services/
     └── ExceptionHandling/
 ```
 
@@ -75,7 +68,7 @@ src/
 
    ```bash
    git clone https://github.com/xklibursolutions/shield.git
-   cd SHIELD
+   cd shield
    ```
 
 2. Install dependencies:
@@ -91,7 +84,7 @@ src/
 1. Run the application:
 
    ```bash
-   dotnet run --project src/XkliburSolutions.SHIELD.Api
+   dotnet run --project src/Shield.Api
    ```
 
 ### Contributing
