@@ -1,10 +1,15 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement.Mvc;
+using XkliburSolutions.Shield.Api.Templates.Registration;
+using XkliburSolutions.Shield.CrossCutting.Configuration;
 using XkliburSolutions.Shield.CrossCutting.DTOs;
+using XkliburSolutions.Shield.CrossCutting.Services;
 using XkliburSolutions.Shield.Domain.Entities;
 using XkliburSolutions.Shield.Domain.Enums;
+using XkliburSolutions.Shield.Infrastructure.Services;
 
 namespace XkliburSolutions.Shield.Api.Features.Register;
 
@@ -40,11 +45,17 @@ public static class RegisterEndpoints
     /// </summary>
     /// <param name="model">The registration model.</param>
     /// <param name="userManager">The user manager.</param>
+    /// <param name="applicationSettings">The application settings.</param>
+    /// <param name="communicationService">The communication service configured.</param>
+    /// <param name="templateService">The template service to generate the email.</param>
     /// <returns>A task that represents the completion of the registration request.</returns>
     [FeatureGate("Registration")]
     private static async Task<IResult> RegisterPost(
         RegisterInputModel model,
-        UserManager<ApplicationUser> userManager)
+        UserManager<ApplicationUser> userManager,
+        IOptions<ApplicationSettings> applicationSettings,
+        ICommunicationService communicationService,
+        TemplateService templateService)
     {
         ApplicationUser user = new()
         {
@@ -65,7 +76,7 @@ public static class RegisterEndpoints
                 string code = await userManager.GenerateEmailConfirmationTokenAsync(user);
                 string encodedCode = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
 
-                RegisterOutputModel output = new RegisterOutputModel
+                RegisterOutputModel output = new()
                 {
                     UserId = userId,
                     ValidationCode = encodedCode,
@@ -73,15 +84,35 @@ public static class RegisterEndpoints
                     DisplayConfirmAccountLink = false
                 };
 
-                if (userManager.SupportsUserEmail)
+                if (userManager.SupportsUserEmail && !string.IsNullOrEmpty(user.Email))
                 {
-                    //TODO: Add send email mechanism and fallback to link
+                    string from = applicationSettings.Value.FromEmailAddress;
+                    string webAppBaseUrl = applicationSettings.Value.WebAppBaseUrl!;
 
-                    // TODO: Localize and log and create final response
-                    //return Results.Ok();
+                    UriBuilder builder = new(webAppBaseUrl)
+                    {
+                        Path = "/Account/ConfirmEmail",
+                        Query = $"userId={userId}&code={encodedCode}"
+                    };
+
+                    ConfirmationEmailModel confirmationEmailModel = new()
+                    {
+                        UserName = user.UserName!,
+                        ConfirmationLink = builder.ToString()
+                    };
+
+                    string emailBody = await templateService.RenderTemplateAsync<ConfirmationEmailModel>(
+                        "Registration/ConfirmationEmail", confirmationEmailModel);
+
+                    communicationService.SendEmail(
+                        "Just One More Step: Confirm Your Account",
+                        emailBody,
+                        from,
+                        user.Email);
                 }
-
+#if DEBUG
                 output.DisplayConfirmAccountLink = true;
+#endif
                 return Results.Ok(output);
             }
             else
