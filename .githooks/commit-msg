@@ -1,0 +1,11 @@
+#!/bin/sh
+commit_message=$(cat "$1")
+conventional_commit_regex='^(feat|fix|docs|style|refactor|perf|test|chore|build|ci|revert)(\(.+\))?: .{1,50}'
+
+if ! echo "$commit_message" | grep -Eq "$conventional_commit_regex"; then
+  echo "Commit message does not follow Conventional Commits format."
+  echo "Examples: "
+  echo "  feat: add new feature"
+  echo "  fix: fix a bug"
+  exit 1
+fi
