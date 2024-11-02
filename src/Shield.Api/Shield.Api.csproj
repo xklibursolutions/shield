@@ -7,7 +7,7 @@
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
     <RootNameSpace>XkliburSolutions.Shield.Api</RootNameSpace>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <UserSecretsId>64734fa0-6366-4364-a0f3-3450845c7026</UserSecretsId>
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
