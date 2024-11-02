@@ -4,10 +4,11 @@ using XkliburSolutions.Shield.Api.Configuration.Extensions;
 using XkliburSolutions.Shield.Api.Features.Login;
 using XkliburSolutions.Shield.Api.Features.Ping;
 using XkliburSolutions.Shield.Api.Features.Register;
-using XkliburSolutions.Shield.CrossCutting.Configuration.Extensions;
 using XkliburSolutions.Shield.CrossCutting.Configuration;
+using XkliburSolutions.Shield.CrossCutting.Configuration.Extensions;
 using XkliburSolutions.Shield.CrossCutting.ExceptionHandling;
 using XkliburSolutions.Shield.CrossCutting.Logging;
+using XkliburSolutions.Shield.CrossCutting.Services;
 using XkliburSolutions.Shield.Infrastructure.Identity;
 using XkliburSolutions.Shield.Infrastructure.Repositories;
 
@@ -15,8 +16,11 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 
 IConfigurationSection appSettingsSection = configuration.GetSection("ApplicationSettings");
-builder.Services.Configure<ApplicationSettings>(appSettingsSection);
 ApplicationSettings applicationSettings = appSettingsSection.Get<ApplicationSettings>()!;
+
+builder.Services.Configure<ApplicationSettings>(appSettingsSection);
+builder.Services.Configure<RegistrationSettings>(
+    configuration.GetSection("ApplicationSettings:RegistrationSettings"));
 
 // Configure the database context to use SQLite with the connection string from the configuration.
 //builder.Services.AddCustomDatabaseContext(builder.Configuration);
@@ -38,6 +42,10 @@ builder.Services.AddSwaggerConfiguration();
 
 builder.Services.AddFeatureManagement();
 
+builder.Services.AddCommunicationService(configuration);
+
+builder.Services.AddSingleton<TemplateService>();
+
 // Use custom logging
 builder.UseCustomLogging();
 
@@ -55,6 +63,14 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    using (IServiceScope scope = app.Services.CreateScope())
+    {
+        ApplicationDbContext db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        //db.Database.Migrate();
+        db.Database.EnsureDeleted();
+        db.Database.EnsureCreated();
+    }
 }
 
 // Enable HTTPS redirection.
