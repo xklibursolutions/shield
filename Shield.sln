@@ -17,6 +17,28 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shield.Infrastructure", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shield.Web", "src\Shield.Web\Shield.Web.csproj", "{C07B7777-36F4-45D5-93CF-25C67CB19DEE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{054FB1D2-260C-4859-A53C-B6E5D5A3DD79}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		CHANGELOG.md = CHANGELOG.md
+		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
+		CONTRIBUTING.md = CONTRIBUTING.md
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".workflows", ".workflows", "{90CF2B68-BA02-4E60-80A8-C535A9B678B1}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build-solution.yml = .github\workflows\build-solution.yml
+		.github\dependabot.yml = .github\dependabot.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".githooks", ".githooks", "{E54EA2CA-C682-4FF8-8A58-F635C9124EAB}"
+	ProjectSection(SolutionItems) = preProject
+		.githooks\commit-msg = .githooks\commit-msg
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

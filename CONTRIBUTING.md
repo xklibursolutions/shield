@@ -39,6 +39,23 @@ We follow the Conventional Commits specification. Here are some examples:
 - `test: add unit tests for user service`
 - `chore: update dependencies`
 
+### Setting Up Git Hooks
+
+To configure your Git hooks with the custom hooks provided in the `.githooks` folder within the `shield` directory, follow these steps:
+
+1. **Navigate to the repository root:**
+   ```sh
+   cd path/to/your/shield/repository
+   ```
+2. Set the Git hooks directory to the custom hooks folder:
+   ```sh
+   git config core.hooksPath shield/.githooks
+   ```
+3. Verify the configuration:
+   ```sh
+   git config --get core.hooksPath
+   ```
+
 ### Code Review Process
 
 All submissions, including pull requests, will undergo a code review. We aim to provide feedback within a few days. Please be patient and address any comments or suggestions.
