@@ -1,4 +1,7 @@
+using System.Globalization;
 using Asp.Versioning;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Localization;
 using Microsoft.FeatureManagement;
 using XkliburSolutions.Shield.Api.Configuration.Extensions;
 using XkliburSolutions.Shield.Api.Features.Login;
@@ -23,8 +26,12 @@ builder.Services.Configure<RegistrationSettings>(
     configuration.GetSection("ApplicationSettings:RegistrationSettings"));
 
 // Configure the database context to use SQLite with the connection string from the configuration.
-//builder.Services.AddCustomDatabaseContext(builder.Configuration);
 builder.Services.AddDbContext<ApplicationDbContext>();
+
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+builder.Services.AddSingleton<IStringLocalizerFactory, ResourceManagerStringLocalizerFactory>();
+builder.Services.AddSingleton(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
 
 // Configure Identity services with custom password options and Entity Framework stores.
 builder.Services.AddCustomIdentity(applicationSettings.RegistrationSettings!);
@@ -67,11 +74,24 @@ if (app.Environment.IsDevelopment())
     using (IServiceScope scope = app.Services.CreateScope())
     {
         ApplicationDbContext db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        //db.Database.Migrate();
         db.Database.EnsureDeleted();
         db.Database.EnsureCreated();
     }
 }
+
+List<CultureInfo> supportedCultures =
+[
+    new( "en" ),
+    new( "fr" ),
+];
+RequestLocalizationOptions options = new()
+{
+    DefaultRequestCulture = new RequestCulture(supportedCultures[0]),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures,
+};
+
+app.UseRequestLocalization(options);
 
 // Enable HTTPS redirection.
 app.UseHttpsRedirection();

@@ -1,8 +1,10 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Microsoft.FeatureManagement.Mvc;
+using XkliburSolutions.Shield.Api.Resources.Features;
 using XkliburSolutions.Shield.Api.Templates.Registration;
 using XkliburSolutions.Shield.CrossCutting.Configuration;
 using XkliburSolutions.Shield.CrossCutting.DTOs;
@@ -47,6 +49,7 @@ public static class RegisterEndpoints
     /// <param name="userManager">The user manager.</param>
     /// <param name="applicationSettings">The application settings.</param>
     /// <param name="communicationService">The communication service configured.</param>
+    /// <param name="localizer">The localization resource.</param>
     /// <param name="templateService">The template service to generate the email.</param>
     /// <returns>A task that represents the completion of the registration request.</returns>
     [FeatureGate("Registration")]
@@ -55,6 +58,7 @@ public static class RegisterEndpoints
         UserManager<ApplicationUser> userManager,
         IOptions<ApplicationSettings> applicationSettings,
         ICommunicationService communicationService,
+        IStringLocalizer<RegisterEndpointsResource> localizer,
         TemplateService templateService)
     {
         ApplicationUser user = new()
@@ -103,9 +107,9 @@ public static class RegisterEndpoints
 
                     string emailBody = await templateService.RenderTemplateAsync<ConfirmationEmailModel>(
                         "Registration/ConfirmationEmail", confirmationEmailModel);
-
+                    
                     communicationService.SendEmail(
-                        "Just One More Step: Confirm Your Account",
+                        localizer["RegisterEndpoints.Email.Subject"], //
                         emailBody,
                         from,
                         user.Email);

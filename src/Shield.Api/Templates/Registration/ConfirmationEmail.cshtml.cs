@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace XkliburSolutions.Shield.Api.Templates.Registration;
 
+
 /// <summary>
 /// Represents the model for the confirmation email page.
 /// </summary>

@@ -9,6 +9,7 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Version>0.2.0</Version>
     <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AssemblyName>XkliburSolutions.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

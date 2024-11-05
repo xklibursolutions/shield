@@ -41,7 +41,6 @@ public static class LoginEndpoints
     {
         // Determine if the input is an email or username
         ApplicationUser? user = null;
-        user = await userManager.FindByEmailAsync(model.UserName!);
 
         user ??= await userManager.FindByNameAsync(model.UserName!);
 
@@ -52,7 +51,11 @@ public static class LoginEndpoints
         }
 
         // Attempt to sign in the user with the provided username/email and password
-        SignInResult result = await signInManager.PasswordSignInAsync(user.UserName!, model.Password!, model.RememberMe, true);
+        SignInResult result = await signInManager.PasswordSignInAsync(
+            user.UserName!,
+            model.Password!,
+            model.RememberMe,
+            lockoutOnFailure: true);
 
         if (result.Succeeded && !result.IsLockedOut)
         {
