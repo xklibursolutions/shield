@@ -1,15 +1,6 @@
 ﻿@page
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
 @model XkliburSolutions.Shield.Web.Pages.Account.LogoutModel
 @{
     ViewData["Title"] = "Logout";
 }
-
-<h2>Logout</h2>
-
-<div class="alert alert-success">
-    You have been logged out.
-</div>
-
-<p>
-    <a asp-page="/Account/Login">Click here to log in again</a>
-</p>

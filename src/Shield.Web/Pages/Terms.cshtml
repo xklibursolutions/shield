@@ -1,26 +1,27 @@
 ﻿@page
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
 @model XkliburSolutions.Shield.Web.Pages.TermsModel
 @{
-    ViewData["Title"] = "Terms of Use";
+    ViewData["Title"] = Localizer["Terms.Title"];
 }
 
-<h1>Terms of Use</h1>
-<p>Welcome to SHIELD: Secure Hub for Identity and Entry Login Distribution. By using our services, you agree to comply with and be bound by the following terms and conditions.</p>
+<h1>@Localizer["Terms.Heading"]</h1>
+<p>@Localizer["Terms.Welcome"]</p>
 
-<h2>Eligibility</h2>
-<p>You must be at least 18 years old to register for an account. If you are under 18, you may not use our services without parental consent and supervision.</p>
+<h2>@Localizer["Terms.Eligibility.Heading"]</h2>
+<p>@Localizer["Terms.Eligibility.Text"]</p>
 
-<h2>Acceptable Use</h2>
-<p>You agree to use SHIELD only for lawful purposes and in a way that does not infringe the rights of, restrict, or inhibit anyone else's use and enjoyment of SHIELD. Prohibited behavior includes harassing or causing distress or inconvenience to any other user, transmitting obscene or offensive content, or disrupting the normal flow of dialogue within SHIELD.</p>
+<h2>@Localizer["Terms.AcceptableUse.Heading"]</h2>
+<p>@Localizer["Terms.AcceptableUse.Text"]</p>
 
-<h2>Account Security</h2>
-<p>You are responsible for maintaining the confidentiality of your account and password and for restricting access to your computer. You agree to accept responsibility for all activities that occur under your account or password.</p>
+<h2>@Localizer["Terms.AccountSecurity.Heading"]</h2>
+<p>@Localizer["Terms.AccountSecurity.Text"]</p>
 
-<h2>Termination</h2>
-<p>We reserve the right to terminate or suspend your account and access to SHIELD at our sole discretion, without notice, for conduct that we believe violates these Terms of Use or is harmful to other users of SHIELD, us, or third parties, or for any other reason.</p>
+<h2>@Localizer["Terms.Termination.Heading"]</h2>
+<p>@Localizer["Terms.Termination.Text"]</p>
 
-<h2>Changes to These Terms</h2>
-<p>We may update these Terms of Use from time to time. We will notify you of any changes by posting the new Terms of Use on our website. You are advised to review these Terms periodically for any changes. Changes to these Terms are effective when they are posted on this page.</p>
+<h2>@Localizer["Terms.Changes.Heading"]</h2>
+<p>@Localizer["Terms.Changes.Text"]</p>
 
-<h2>Contact Us</h2>
-<p>If you have any questions about these Terms of Use, please contact us at <a href="mailto:privacy@xklibursolutions.io">privacy@xklibursolutions.io</a>.</p>
+<h2>@Localizer["Terms.ContactUs.Heading"]</h2>
+<p>@Localizer["Terms.ContactUs.Text"] <a href="mailto:privacy@xklibursolutions.io">privacy@xklibursolutions.io</a>.</p>

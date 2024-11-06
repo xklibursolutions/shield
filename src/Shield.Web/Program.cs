@@ -1,6 +1,7 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.FeatureManagement;
 using XkliburSolutions.Shield.CrossCutting.Configuration.Extensions;
 using XkliburSolutions.Shield.CrossCutting.ExceptionHandling;
@@ -12,7 +13,17 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.AddRazorPages()
+    .AddViewLocalization();
+//.AddDataAnnotationsLocalization(options =>
+//{
+//    options.DataAnnotationLocalizerProvider = (type, factory) =>
+//    {
+//        AssemblyName assemblyName = new(typeof(SharedResources).GetTypeInfo().Assembly.FullName!);
+//        return factory.Create(nameof(SharedResources), assemblyName.Name!);
+//    };
+//});
 
 builder.Services.AddHttpClient<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IClaimsService, ClaimsService>();
@@ -71,7 +82,6 @@ builder.Services.ConfigureApplicationCookie(options =>
     };
 });
 
-
 WebApplication app = builder.Build();
 
 // Log that the application has started
@@ -90,6 +100,20 @@ if (!app.Environment.IsDevelopment())
     // This can be adjusted for production scenarios. For more information, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+List<CultureInfo> supportedCultures =
+[
+    new( "en" ),
+    new( "fr" ),
+];
+RequestLocalizationOptions options = new()
+{
+    DefaultRequestCulture = new RequestCulture(supportedCultures[0]),
+    SupportedCultures = supportedCultures,
+    SupportedUICultures = supportedCultures,
+};
+
+app.UseRequestLocalization(options);
 
 // Redirect HTTP requests to HTTPS.
 app.UseHttpsRedirection();

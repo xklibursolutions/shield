@@ -1,55 +1,56 @@
 ﻿@page
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
 @model PrivacyModel
 @{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = Localizer["PrivacyPolicy.Title"];
 }
 
-<h1>Privacy Policy</h1>
+<h1>@Localizer["PrivacyPolicy.Heading"]</h1>
 
-<p>Welcome to SHIELD: Secure Hub for Identity and Entry Login Distribution. Your privacy is important to us, and we want to be transparent about how we handle your information. This policy explains what data we collect, how we use it, and your rights.</p>
+<p>@Localizer["PrivacyPolicy.Introduction.Text"]</p>
 
-<h2>What Data We Collect</h2>
+<h2>@Localizer["PrivacyPolicy.WhatDataWeCollect.Heading"]</h2>
 <ul>
-    <li><strong>Registration Information:</strong> When you sign up, we collect your name, email address, and password.</li>
-    <li><strong>Usage Data:</strong> We track how you use SHIELD, including login attempts and access logs.</li>
-    <li><strong>Feedback and Support:</strong> If you contact us, we collect the information you provide.</li>
+    <li><strong>@Localizer["PrivacyPolicy.RegistrationInformation.Heading"]:</strong> @Localizer["PrivacyPolicy.RegistrationInformation.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.UsageData.Heading"]:</strong> @Localizer["PrivacyPolicy.UsageData.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.FeedbackAndSupport.Heading"]:</strong> @Localizer["PrivacyPolicy.FeedbackAndSupport.Text"]</li>
 </ul>
 
-<h2>How We Use Your Data</h2>
+<h2>@Localizer["PrivacyPolicy.HowWeUseYourData.Heading"]</h2>
 <ul>
-    <li><strong>Authentication:</strong> To verify your identity and manage access.</li>
-    <li><strong>Improvement:</strong> To analyze usage and improve SHIELD.</li>
-    <li><strong>Communication:</strong> To send updates and respond to your inquiries.</li>
+    <li><strong>@Localizer["PrivacyPolicy.Authentication.Heading"]:</strong> @Localizer["PrivacyPolicy.Authentication.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.Improvement.Heading"]:</strong> @Localizer["PrivacyPolicy.Improvement.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.Communication.Heading"]:</strong> @Localizer["PrivacyPolicy.Communication.Text"]</li>
 </ul>
 
-<h2>Sharing Your Data</h2>
-<p>We do not share your personal data with third parties, except:</p>
+<h2>@Localizer["PrivacyPolicy.SharingYourData.Heading"]</h2>
+<p>@Localizer["PrivacyPolicy.SharingYourData.Text"]</p>
 <ul>
-    <li><strong>Legal Requirements:</strong> If required by law.</li>
-    <li><strong>Service Providers:</strong> With trusted partners who help us operate SHIELD, under strict confidentiality.</li>
+    <li><strong>@Localizer["PrivacyPolicy.LegalRequirements.Heading"]:</strong> @Localizer["PrivacyPolicy.LegalRequirements.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.ServiceProviders.Heading"]:</strong> @Localizer["PrivacyPolicy.ServiceProviders.Text"]</li>
 </ul>
 
-<h2>Your Rights</h2>
-<p>You have control over your data:</p>
+<h2>@Localizer["PrivacyPolicy.YourRights.Heading"]</h2>
+<p>@Localizer["PrivacyPolicy.YourRights.Text"]</p>
 <ul>
-    <li><strong>Access:</strong> You can request to see your data.</li>
-    <li><strong>Correction:</strong> You can ask us to correct any inaccuracies.</li>
-    <li><strong>Deletion:</strong> You can request deletion of your data.</li>
-    <li><strong>Objection:</strong> You can object to certain uses of your data.</li>
+    <li><strong>@Localizer["PrivacyPolicy.Access.Heading"]:</strong> @Localizer["PrivacyPolicy.Access.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.Correction.Heading"]:</strong> @Localizer["PrivacyPolicy.Correction.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.Deletion.Heading"]:</strong> @Localizer["PrivacyPolicy.Deletion.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.Objection.Heading"]:</strong> @Localizer["PrivacyPolicy.Objection.Text"]</li>
 </ul>
-<p>To exercise these rights, contact us at <a href="mailto:privacy@xklibursolutions.io">privacy@xklibursolutions.io</a>.</p>
+<p>@Localizer["PrivacyPolicy.ContactUs.Text"] <a href="mailto:privacy@xklibursolutions.io">privacy@xklibursolutions.io</a>.</p>
 
-<h2>How We Protect Your Data</h2>
+<h2>@Localizer["PrivacyPolicy.HowWeProtectYourData.Heading"]</h2>
 <ul>
-    <li><strong>Encryption:</strong> Your data is encrypted during transfer and storage.</li>
-    <li><strong>Access Controls:</strong> Only authorized personnel can access your data.</li>
-    <li><strong>Regular Audits:</strong> We regularly check our systems for vulnerabilities.</li>
+    <li><strong>@Localizer["PrivacyPolicy.Encryption.Heading"]:</strong> @Localizer["PrivacyPolicy.Encryption.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.AccessControls.Heading"]:</strong> @Localizer["PrivacyPolicy.AccessControls.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.RegularAudits.Heading"]:</strong> @Localizer["PrivacyPolicy.RegularAudits.Text"]</li>
 </ul>
 
-<h2>Contact Us</h2>
-<p>If you have any questions or concerns about your privacy, please reach out to us at <a href="mailto:privacy@xklibursolutions.io">privacy@xklibursolutions.io</a>.</p>
+<h2>@Localizer["PrivacyPolicy.ContactUs.Heading"]</h2>
+<p>@Localizer["PrivacyPolicy.ContactUs.Text"] <a href="mailto:privacy@xklibursolutions.io">privacy@xklibursolutions.io</a>.</p>
 
-<h2>Updates to This Policy</h2>
-<p>We may update this policy occasionally. We will notify you of any significant changes by posting the new policy on our website.</p>
+<h2>@Localizer["PrivacyPolicy.UpdatesToThisPolicy.Heading"]</h2>
+<p>@Localizer["PrivacyPolicy.UpdatesToThisPolicy.Text"]</p>
 
-<p><strong>Effective Date:</strong> [Insert Date]</p>
+<p><strong>@Localizer["PrivacyPolicy.EffectiveDate.Heading"]:</strong> @Localizer["PrivacyPolicy.EffectiveDate.Text"]</p>
