@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [versionize](https://github.com/versionize/versionize) for commit guidelines.
 
+<a name="0.3.0"></a>
+## [0.3.0](https://www.github.com/xklibursolutions/shield/releases/tag/v0.3.0) (2024-11-07)
+
+### Features
+
+* add localization core to web and api projects ([#22](https://www.github.com/xklibursolutions/shield/issues/22)) ([5854e44](https://www.github.com/xklibursolutions/shield/commit/5854e445d1224b15b7c66a5ce780775ff8c14173))
+
 <a name="0.2.0"></a>
 ## [0.2.0](https://www.github.com/xklibursolutions/shield/releases/tag/v0.2.0) (2024-11-02)
 
