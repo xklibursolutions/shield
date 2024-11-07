@@ -1,28 +1,13 @@
-name: Versionize
+name: Main
 
 on:
-  workflow_run:
-    workflows: ["Build and Test"]
-    types:
-      - completed
-
-permissions:
-  actions: read
-  checks: write
-  contents: write
-  deployments: write
-  issues: write
-  discussions: read
-  packages: write
-  pages: write
-  pull-requests: read
-  repository-projects: read
-  security-events: read
-  statuses: read
+  push:
+    branches:
+      - main
 
 jobs:
-  versionize:
-    if: ${{ github.event.workflow_run.conclusion == 'success' && github.ref == 'refs/heads/main' }}
+  main:
+
     runs-on: ubuntu-latest
 
     steps:
@@ -35,6 +20,16 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore
+
+    - name: Test
+      id: test
+      run: dotnet test --no-build --verbosity normal
+    
     - name: Setup git
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
