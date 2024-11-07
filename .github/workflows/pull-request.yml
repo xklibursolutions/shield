@@ -1,16 +1,10 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
-
-name: Build and Test
+name: Pull request
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
 
 jobs:
-  build-and-test:
+  pull-request-validation:
 
     runs-on: ubuntu-latest
 
@@ -31,8 +25,4 @@ jobs:
       run: dotnet build --no-restore
 
     - name: Test
-      id: test
       run: dotnet test --no-build --verbosity normal
-
-    outputs:
-      build-status: ${{ steps.test.outcome }}

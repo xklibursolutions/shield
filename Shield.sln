@@ -30,9 +30,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{054FB1D2-2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".workflows", ".workflows", "{90CF2B68-BA02-4E60-80A8-C535A9B678B1}"
 	ProjectSection(SolutionItems) = preProject
-		.github\workflows\build-solution.yml = .github\workflows\build-solution.yml
 		.github\dependabot.yml = .github\dependabot.yml
-		versionize.yml = versionize.yml
+		.github\workflows\pull-request.yml = .github\workflows\pull-request.yml
+		main.yml = main.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".githooks", ".githooks", "{E54EA2CA-C682-4FF8-8A58-F635C9124EAB}"
