@@ -1,7 +1,6 @@
 ﻿using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using XkliburSolutions.Shield.Core.DTOs;
@@ -27,7 +26,7 @@ namespace XkliburSolutions.Shield.Infrastructure.Services;
 /// <param name="localizer">The string localizer.</param>
 /// <param name="templateService">The template service.</param>
 /// <param name="signInManager">The sign in manager.</param>
-/// <param name="configuration">The configuration options.</param>
+/// <param name="tokenGenerator">The JWT token generator.</param>
 public class UserService(
     UserManager<ApplicationUser> userManager,
     IOptions<ApplicationSettings> applicationSettings,
@@ -35,7 +34,7 @@ public class UserService(
     IStringLocalizer<UserServiceResource> localizer,
     TemplateService templateService,
     SignInManager<ApplicationUser> signInManager,
-    IConfiguration configuration) : IUserService
+    JwtTokenGenerator tokenGenerator) : IUserService
 {
     /// <inheritdoc/>
     public async Task<IdentityResult> RegisterUserAsync(RegisterInputModel model)
@@ -142,8 +141,7 @@ public class UserService(
 
         if (result.Succeeded && !result.IsLockedOut)
         {
-            string token = new JwtTokenGenerator(configuration)
-                .GenerateJwtToken(user.UserName!);
+            string token = tokenGenerator.GenerateJwtToken(user.UserName!);
 
             return (IdentityResult.Success, token);
         }

@@ -5,6 +5,7 @@ using XkliburSolutions.Shield.Core.DTOs;
 using XkliburSolutions.Shield.Core.Entities;
 using XkliburSolutions.Shield.Core.Models.Input;
 using XkliburSolutions.Shield.Core.Models.Output;
+using XkliburSolutions.Shield.Core.Services;
 using XkliburSolutions.Shield.Infrastructure.Services;
 
 namespace XkliburSolutions.Shield.Api.Features;
@@ -40,7 +41,7 @@ public static class UserEndpoints
     private static async Task<IResult> GetLoggedUserInfoAsync(
         UserManager<ApplicationUser> userManager,
         HttpContext httpContext,
-        UserService userService)
+        IUserService userService)
     {
         string? username = httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
         UserDto? user = await userService.GetLoggedUserInfoAsync(username!);

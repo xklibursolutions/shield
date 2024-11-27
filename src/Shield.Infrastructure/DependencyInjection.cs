@@ -10,6 +10,8 @@ using XkliburSolutions.Shield.Infrastructure.Identity;
 using XkliburSolutions.Shield.Infrastructure.Repositories;
 using XkliburSolutions.Shield.Infrastructure.Services;
 using XkliburSolutions.Shield.CrossCutting.Extensions;
+using XkliburSolutions.Shield.Infrastructure.Security;
+using XkliburSolutions.Shield.Core.Services;
 
 namespace XkliburSolutions.Shield.Infrastructure;
 
@@ -62,10 +64,11 @@ public static class DependencyInjection
         services.AddCommunicationService(configuration);
 
         services.AddSingleton<TemplateService>();
+        services.AddSingleton<JwtTokenGenerator>();
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped<UserService>();
+        services.AddScoped<IUserService, UserService>();
 
         return services;
     }

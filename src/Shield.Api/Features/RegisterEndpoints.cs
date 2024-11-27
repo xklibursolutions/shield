@@ -3,6 +3,7 @@ using Microsoft.FeatureManagement.Mvc;
 using XkliburSolutions.Shield.Core.DTOs;
 using XkliburSolutions.Shield.Core.Models.Input;
 using XkliburSolutions.Shield.Core.Models.Output;
+using XkliburSolutions.Shield.Core.Services;
 using XkliburSolutions.Shield.Infrastructure.Services;
 
 namespace XkliburSolutions.Shield.Api.Features;
@@ -43,7 +44,7 @@ public static class RegisterEndpoints
     [FeatureGate("Registration")]
     private static async Task<IResult> RegisterPost(
         RegisterInputModel model,
-        UserService userService)
+        IUserService userService)
     {
         IdentityResult result = await userService.RegisterUserAsync(model);
 
@@ -84,7 +85,7 @@ public static class RegisterEndpoints
     [FeatureGate("Registration")]
     private static async Task<IResult> ValidateEmailPost(
         ValidateEmailInputModel model,
-        UserService userService)
+        IUserService userService)
     {
         IdentityResult result = await userService.ValidateEmailAsync(model);
 
