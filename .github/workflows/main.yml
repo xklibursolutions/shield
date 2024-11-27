@@ -50,6 +50,8 @@ jobs:
         JWT__ISSUER: ${{ secrets.JWT__ISSUER }}
         JWT__AUDIENCE: ${{ secrets.JWT__AUDIENCE
         ConnectionStrings__DefaultConnection: ${{ secrets.CONNECTIONSTRINGS__DEFAULTCONNECTION }}
+        ApplicationSettings__FromEmailAddress: ${{ secrets.APPLICATIONSETTINGS__FROMEMAILADDRESS }}
+        ApplicationSettings__AzureCommunicationService__ConnectionString: ${{ secrets.APPLICATIONSETTINGS__AZURECOMMUNICATIONSERVICE__CONNECTIONSTRING }}
     
     - name: Setup git
       run: |
