@@ -7,6 +7,8 @@ using XkliburSolutions.Shield.Infrastructure.Data;
 using XkliburSolutions.Shield.Infrastructure;
 using XkliburSolutions.Shield.CrossCutting.Middleware;
 using XkliburSolutions.Shield.CrossCutting.Logging;
+using XkliburSolutions.Shield.Infrastructure.Services;
+using XkliburSolutions.Shield.Core.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;

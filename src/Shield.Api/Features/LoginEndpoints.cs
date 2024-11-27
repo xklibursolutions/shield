@@ -2,6 +2,7 @@
 using XkliburSolutions.Shield.Core.DTOs;
 using XkliburSolutions.Shield.Core.Models.Input;
 using XkliburSolutions.Shield.Core.Models.Output;
+using XkliburSolutions.Shield.Core.Services;
 using XkliburSolutions.Shield.Infrastructure.Services;
 
 namespace XkliburSolutions.Shield.Api.Features;
@@ -32,9 +33,7 @@ public static class LoginEndpoints
     /// <param name="model">The login model containing email and password.</param>
     /// <param name="userService">The user service.</param>
     /// <returns>An <see cref="IResult"/> indicating the outcome of the login operation.</returns>
-    private static async Task<IResult> LoginPostAsync(
-        LoginInputModel model,
-        UserService userService)
+    public static async Task<IResult> LoginPostAsync(LoginInputModel model, IUserService userService)
     {
         (IdentityResult result, string token) = await userService.LoginAsync(model);
 
@@ -52,5 +51,4 @@ public static class LoginEndpoints
 
         return Results.Unauthorized();
     }
-
 }
