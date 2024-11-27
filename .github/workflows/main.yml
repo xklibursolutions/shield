@@ -48,7 +48,8 @@ jobs:
       env:
         JWT__SECRET: ${{ secrets.JWT__SECRET }}
         JWT__ISSUER: ${{ secrets.JWT__ISSUER }}
-        JWT__AUDIENCE: ${{ secrets.JWT__AUDIENCE }}
+        JWT__AUDIENCE: ${{ secrets.JWT__AUDIENCE
+        ConnectionStrings__DefaultConnection: ${{ secrets.CONNECTIONSTRINGS__DEFAULTCONNECTION }}
     
     - name: Setup git
       run: |
