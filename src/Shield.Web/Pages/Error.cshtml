@@ -1,0 +1,20 @@
+﻿@page
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@model ErrorModel
+@{
+    ViewData["Title"] = Localizer["Error.Title"];
+}
+
+<h1 class="text-danger">@Localizer["Error.Heading"]</h1>
+<h2 class="text-danger">@Localizer["Error.Occurred.Text"]</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>@Localizer["Error.RequestId.Heading"]</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<h3>@Localizer["Error.DevelopmentMode.Heading"]</h3>
+<p>@Localizer["Error.DevelopmentMode.Text1"]</p>
+<p>@Localizer["Error.DevelopmentMode.Text2"]</p>

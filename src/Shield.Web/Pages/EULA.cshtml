@@ -1,0 +1,32 @@
+﻿@page
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@model XkliburSolutions.Shield.Web.Pages.EULAModel
+@{
+    ViewData["Title"] = Localizer["EULA.Title"];
+}
+
+<h1>@Localizer["EULA.Heading"]</h1>
+<p>@Localizer["EULA.Introduction.Text"]</p>
+
+<h2>@Localizer["EULA.License.Heading"]</h2>
+<p>@Localizer["EULA.License.Text"]</p>
+<ul>
+    <li>@Localizer["EULA.License.Condition1.Text"]</li>
+    <li>@Localizer["EULA.License.Condition2.Text"]</li>
+</ul>
+
+<h2>@Localizer["EULA.Restrictions.Heading"]</h2>
+<p>@Localizer["EULA.Restrictions.Text"]</p>
+<ul>
+    <li>@Localizer["EULA.Restrictions.Restriction1.Text"]</li>
+    <li>@Localizer["EULA.Restrictions.Restriction2.Text"]</li>
+</ul>
+
+<h2>@Localizer["EULA.Termination.Heading"]</h2>
+<p>@Localizer["EULA.Termination.Text"]</p>
+
+<h2>@Localizer["EULA.GoverningLaw.Heading"]</h2>
+<p>@Localizer["EULA.GoverningLaw.Text"]</p>
+
+<h2>@Localizer["EULA.ContactInformation.Heading"]</h2>
+<p>@Localizer["EULA.ContactInformation.Text"] <a href="mailto:privacy@xklibursolutions.io">privacy@xklibursolutions.io</a>.</p>

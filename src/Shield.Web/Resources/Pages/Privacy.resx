@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PrivacyPolicy.Title" xml:space="preserve">
+  <value>Privacy Policy</value>
+</data>
+  <data name="PrivacyPolicy.Heading" xml:space="preserve">
+  <value>Privacy Policy</value>
+</data>
+  <data name="PrivacyPolicy.Introduction.Text" xml:space="preserve">
+  <value>Welcome to SHIELD: Secure Hub for Identity and Entry Login Distribution. Your privacy is important to us, and we want to be transparent about how we handle your information. This policy explains what data we collect, how we use it, and your rights.</value>
+</data>
+  <data name="PrivacyPolicy.WhatDataWeCollect.Heading" xml:space="preserve">
+  <value>What Data We Collect</value>
+</data>
+  <data name="PrivacyPolicy.RegistrationInformation.Heading" xml:space="preserve">
+  <value>Registration Information</value>
+</data>
+  <data name="PrivacyPolicy.RegistrationInformation.Text" xml:space="preserve">
+  <value>When you sign up, we collect your name, email address, and password.</value>
+</data>
+  <data name="PrivacyPolicy.UsageData.Heading" xml:space="preserve">
+  <value>Usage Data</value>
+</data>
+  <data name="PrivacyPolicy.UsageData.Text" xml:space="preserve">
+  <value>We track how you use SHIELD, including login attempts and access logs.</value>
+</data>
+  <data name="PrivacyPolicy.FeedbackAndSupport.Heading" xml:space="preserve">
+  <value>Feedback and Support</value>
+</data>
+  <data name="PrivacyPolicy.FeedbackAndSupport.Text" xml:space="preserve">
+  <value>If you contact us, we collect the information you provide.</value>
+</data>
+  <data name="PrivacyPolicy.HowWeUseYourData.Heading" xml:space="preserve">
+  <value>How We Use Your Data</value>
+</data>
+  <data name="PrivacyPolicy.Authentication.Heading" xml:space="preserve">
+  <value>Authentication</value>
+</data>
+  <data name="PrivacyPolicy.Authentication.Text" xml:space="preserve">
+  <value>To verify your identity and manage access.</value>
+</data>
+  <data name="PrivacyPolicy.Improvement.Heading" xml:space="preserve">
+  <value>Improvement</value>
+</data>
+  <data name="PrivacyPolicy.Improvement.Text" xml:space="preserve">
+  <value>To analyze usage and improve SHIELD.</value>
+</data>
+  <data name="PrivacyPolicy.Communication.Heading" xml:space="preserve">
+  <value>Communication</value>
+</data>
+  <data name="PrivacyPolicy.Communication.Text" xml:space="preserve">
+  <value>To send updates and respond to your inquiries.</value>
+</data>
+  <data name="PrivacyPolicy.SharingYourData.Heading" xml:space="preserve">
+  <value>Sharing Your Data</value>
+</data>
+  <data name="PrivacyPolicy.SharingYourData.Text" xml:space="preserve">
+  <value>We do not share your personal data with third parties, except:</value>
+</data>
+  <data name="PrivacyPolicy.LegalRequirements.Heading" xml:space="preserve">
+  <value>Legal Requirements</value>
+</data>
+  <data name="PrivacyPolicy.LegalRequirements.Text" xml:space="preserve">
+  <value>If required by law.</value>
+</data>
+  <data name="PrivacyPolicy.ServiceProviders.Heading" xml:space="preserve">
+  <value>Service Providers</value>
+</data>
+  <data name="PrivacyPolicy.ServiceProviders.Text" xml:space="preserve">
+  <value>With trusted partners who help us operate SHIELD, under strict confidentiality.</value>
+</data>
+  <data name="PrivacyPolicy.YourRights.Heading" xml:space="preserve">
+  <value>Your Rights</value>
+</data>
+  <data name="PrivacyPolicy.YourRights.Text" xml:space="preserve">
+  <value>You have control over your data:</value>
+</data>
+  <data name="PrivacyPolicy.Access.Heading" xml:space="preserve">
+  <value>Access</value>
+</data>
+  <data name="PrivacyPolicy.Access.Text" xml:space="preserve">
+  <value>You can request to see your data.</value>
+</data>
+  <data name="PrivacyPolicy.Correction.Heading" xml:space="preserve">
+  <value>Correction</value>
+</data>
+  <data name="PrivacyPolicy.Correction.Text" xml:space="preserve">
+  <value>You can ask us to correct any inaccuracies.</value>
+</data>
+  <data name="PrivacyPolicy.Deletion.Heading" xml:space="preserve">
+  <value>Deletion</value>
+</data>
+  <data name="PrivacyPolicy.Deletion.Text" xml:space="preserve">
+  <value>You can request deletion of your data.</value>
+</data>
+  <data name="PrivacyPolicy.Objection.Heading" xml:space="preserve">
+  <value>Objection</value>
+</data>
+  <data name="PrivacyPolicy.Objection.Text" xml:space="preserve">
+  <value>You can object to certain uses of your data.</value>
+</data>
+  <data name="PrivacyPolicy.Objection.ContactUs.Text" xml:space="preserve">
+  <value>To exercise these rights, contact us at</value>
+</data>
+  <data name="PrivacyPolicy.HowWeProtectYourData.Heading" xml:space="preserve">
+  <value>How We Protect Your Data</value>
+</data>
+  <data name="PrivacyPolicy.Encryption.Heading" xml:space="preserve">
+  <value>Encryption</value>
+</data>
+  <data name="PrivacyPolicy.Encryption.Text" xml:space="preserve">
+  <value>Your data is encrypted during transfer and storage.</value>
+</data>
+  <data name="PrivacyPolicy.AccessControls.Heading" xml:space="preserve">
+  <value>Access Controls</value>
+</data>
+  <data name="PrivacyPolicy.AccessControls.Text" xml:space="preserve">
+  <value>Only authorized personnel can access your data.</value>
+</data>
+  <data name="PrivacyPolicy.RegularAudits.Heading" xml:space="preserve">
+  <value>Regular Audits</value>
+</data>
+  <data name="PrivacyPolicy.RegularAudits.Text" xml:space="preserve">
+  <value>We regularly check our systems for vulnerabilities.</value>
+</data>
+  <data name="PrivacyPolicy.ContactUs.Heading" xml:space="preserve">
+  <value>Contact Us</value>
+</data>
+  <data name="PrivacyPolicy.ContactUs.Text" xml:space="preserve">
+  <value>If you have any questions or concerns about your privacy, please reach out to us at</value>
+</data>
+  <data name="PrivacyPolicy.UpdatesToThisPolicy.Heading" xml:space="preserve">
+  <value>Updates to This Policy</value>
+</data>
+  <data name="PrivacyPolicy.UpdatesToThisPolicy.Text" xml:space="preserve">
+  <value>We may update this policy occasionally. We will notify you of any significant changes by posting the new policy on our website.</value>
+</data>
+  <data name="PrivacyPolicy.EffectiveDate.Heading" xml:space="preserve">
+  <value>Effective Date</value>
+</data>
+  <data name="PrivacyPolicy.EffectiveDate.Text" xml:space="preserve">
+  <value>[Insert Date]</value>
+</data>
+</root>

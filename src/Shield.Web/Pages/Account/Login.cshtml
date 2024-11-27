@@ -1,0 +1,91 @@
+﻿@page
+@addTagHelper *, Microsoft.FeatureManagement.AspNetCore
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@model XkliburSolutions.Shield.Web.Pages.Account.LoginModel
+@{
+    Layout = null;
+    ViewData["Title"] = Localizer["Login.Title"];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - XkliburSolutions</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
+</head>
+<body>
+    <div class="container d-flex flex-column justify-content-center align-items-center min-vh-100">
+        <div class="card p-4 shadow-lg" style="width: 100%; max-width: 400px;">
+            <div class="card-body">
+                <div class="text-center">
+                    <img src="~/images/logo.svg" alt="Logo" class="mb-4 text-center" style="max-width: 150px;">
+                </div>
+                @if (Model.IsLoggedOut.HasValue && Model.IsLoggedOut.Value)
+                {
+                    <div class="alert alert-info" role="alert">
+                        @Localizer["Login.LoggedOut.Text"]
+                    </div>
+                }
+
+                @if (Model.IsAccountConfirmed.HasValue)
+                {
+                    if (Model.IsAccountConfirmed.Value)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            @Localizer["Login.AccountConfirmed.Text"]
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @Localizer["Login.AccountConfirmationError.Text"]
+                        </div>
+                    }
+                }
+
+                <h2 class="text-center mb-4">@Localizer["Login.SignIn.Heading"]</h2>
+
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.UserName" class="form-control" autocomplete="username" aria-required="true" placeholder="username" />
+                        <label asp-for="Input.UserName" class="form-label">@Localizer["Login.UserName.Label"]</label>
+                        <span asp-validation-for="Input.UserName" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3 password-toggle">
+                        <input asp-for="Input.Password" type="password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Password" id="password" />
+                        <label asp-for="Input.Password">@Localizer["Login.Password.Label"]</label>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        <span class="toggle-icon" onclick="togglePasswordVisibility()">
+                            <i class="fas fa-eye" id="toggleIcon"></i>
+                        </span>
+                    </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" asp-for="Input.RememberMe" />
+                        <label asp-for="Input.RememberMe" class="form-check-label">@Localizer["Login.RememberMe.Label"]</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">@Localizer["Login.SignIn.Button"]</button>
+                </form>
+            </div>
+        </div>
+        <feature name="Registration">
+            <div class="mt-3">
+                @Localizer["Login.NoAccount.Text"] <a href="/Account/Register" class="text-decoration-none">@Localizer["Login.CreateAccount.LinkText"]</a>
+            </div>
+        </feature>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src="~/js/auth.js" asp-append-version="true"></script>
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+</html>

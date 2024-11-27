@@ -1,0 +1,10 @@
+﻿@using XkliburSolutions.Shield.Core.DTOs
+@model ConfirmEmailDto
+
+<html>
+<body>
+    <h1>Welcome, @Model.UserName!</h1>
+    <p>Thank you for registering. Please confirm your email by clicking the link below:</p>
+    <a href="@Model.ConfirmationLink">Confirm Email</a>
+</body>
+</html>

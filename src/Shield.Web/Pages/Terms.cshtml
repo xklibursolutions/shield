@@ -1,0 +1,27 @@
+﻿@page
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@model XkliburSolutions.Shield.Web.Pages.TermsModel
+@{
+    ViewData["Title"] = Localizer["Terms.Title"];
+}
+
+<h1>@Localizer["Terms.Heading"]</h1>
+<p>@Localizer["Terms.Welcome"]</p>
+
+<h2>@Localizer["Terms.Eligibility.Heading"]</h2>
+<p>@Localizer["Terms.Eligibility.Text"]</p>
+
+<h2>@Localizer["Terms.AcceptableUse.Heading"]</h2>
+<p>@Localizer["Terms.AcceptableUse.Text"]</p>
+
+<h2>@Localizer["Terms.AccountSecurity.Heading"]</h2>
+<p>@Localizer["Terms.AccountSecurity.Text"]</p>
+
+<h2>@Localizer["Terms.Termination.Heading"]</h2>
+<p>@Localizer["Terms.Termination.Text"]</p>
+
+<h2>@Localizer["Terms.Changes.Heading"]</h2>
+<p>@Localizer["Terms.Changes.Text"]</p>
+
+<h2>@Localizer["Terms.ContactUs.Heading"]</h2>
+<p>@Localizer["Terms.ContactUs.Text"] <a href="mailto:privacy@xklibursolutions.io">privacy@xklibursolutions.io</a>.</p>

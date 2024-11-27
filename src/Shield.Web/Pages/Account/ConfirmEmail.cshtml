@@ -1,0 +1,22 @@
+﻿@page
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@model XkliburSolutions.Shield.Web.Pages.Account.ConfirmEmailModel
+@{
+}
+
+<h1>@Localizer["ConfirmEmail.Heading"]</h1>
+@{
+    <p>@Localizer["ConfirmEmail.ThankYou.Text"]</p>
+    <p>@Localizer["ConfirmEmail.CheckEmail.Text"]</p>
+    <p>@Localizer["ConfirmEmail.ThankYouAgain.Text"]</p>
+    <p>@Localizer["ConfirmEmail.SignIn.Text"] <a href="/Account/Login" class="text-decoration-none">@Localizer["ConfirmEmail.SignIn.LinkText"]</a></p>
+
+    if (@Model.DisplayConfirmAccountLink)
+    {
+        <!-- Debug section: Only display this if the debug flag is enabled -->
+        <div class="alert alert-info">
+            <p><strong>@Localizer["ConfirmEmail.DebugMode.Heading"]</strong> @Localizer["ConfirmEmail.DebugMode.Text"]</p>
+            <p><a href="@Model.CallbackUrl">@Localizer["ConfirmEmail.DebugMode.LinkText"]</a></p>
+        </div>
+    }
+}

@@ -1,0 +1,56 @@
+﻿@page
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer Localizer
+@model PrivacyModel
+@{
+    ViewData["Title"] = Localizer["PrivacyPolicy.Title"];
+}
+
+<h1>@Localizer["PrivacyPolicy.Heading"]</h1>
+
+<p>@Localizer["PrivacyPolicy.Introduction.Text"]</p>
+
+<h2>@Localizer["PrivacyPolicy.WhatDataWeCollect.Heading"]</h2>
+<ul>
+    <li><strong>@Localizer["PrivacyPolicy.RegistrationInformation.Heading"]:</strong> @Localizer["PrivacyPolicy.RegistrationInformation.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.UsageData.Heading"]:</strong> @Localizer["PrivacyPolicy.UsageData.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.FeedbackAndSupport.Heading"]:</strong> @Localizer["PrivacyPolicy.FeedbackAndSupport.Text"]</li>
+</ul>
+
+<h2>@Localizer["PrivacyPolicy.HowWeUseYourData.Heading"]</h2>
+<ul>
+    <li><strong>@Localizer["PrivacyPolicy.Authentication.Heading"]:</strong> @Localizer["PrivacyPolicy.Authentication.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.Improvement.Heading"]:</strong> @Localizer["PrivacyPolicy.Improvement.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.Communication.Heading"]:</strong> @Localizer["PrivacyPolicy.Communication.Text"]</li>
+</ul>
+
+<h2>@Localizer["PrivacyPolicy.SharingYourData.Heading"]</h2>
+<p>@Localizer["PrivacyPolicy.SharingYourData.Text"]</p>
+<ul>
+    <li><strong>@Localizer["PrivacyPolicy.LegalRequirements.Heading"]:</strong> @Localizer["PrivacyPolicy.LegalRequirements.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.ServiceProviders.Heading"]:</strong> @Localizer["PrivacyPolicy.ServiceProviders.Text"]</li>
+</ul>
+
+<h2>@Localizer["PrivacyPolicy.YourRights.Heading"]</h2>
+<p>@Localizer["PrivacyPolicy.YourRights.Text"]</p>
+<ul>
+    <li><strong>@Localizer["PrivacyPolicy.Access.Heading"]:</strong> @Localizer["PrivacyPolicy.Access.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.Correction.Heading"]:</strong> @Localizer["PrivacyPolicy.Correction.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.Deletion.Heading"]:</strong> @Localizer["PrivacyPolicy.Deletion.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.Objection.Heading"]:</strong> @Localizer["PrivacyPolicy.Objection.Text"]</li>
+</ul>
+<p>@Localizer["PrivacyPolicy.Objection.ContactUs.Text"] <a href="mailto:privacy@xklibursolutions.io">privacy@xklibursolutions.io</a>.</p>
+
+<h2>@Localizer["PrivacyPolicy.HowWeProtectYourData.Heading"]</h2>
+<ul>
+    <li><strong>@Localizer["PrivacyPolicy.Encryption.Heading"]:</strong> @Localizer["PrivacyPolicy.Encryption.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.AccessControls.Heading"]:</strong> @Localizer["PrivacyPolicy.AccessControls.Text"]</li>
+    <li><strong>@Localizer["PrivacyPolicy.RegularAudits.Heading"]:</strong> @Localizer["PrivacyPolicy.RegularAudits.Text"]</li>
+</ul>
+
+<h2>@Localizer["PrivacyPolicy.ContactUs.Heading"]</h2>
+<p>@Localizer["PrivacyPolicy.ContactUs.Text"] <a href="mailto:privacy@xklibursolutions.io">privacy@xklibursolutions.io</a>.</p>
+
+<h2>@Localizer["PrivacyPolicy.UpdatesToThisPolicy.Heading"]</h2>
+<p>@Localizer["PrivacyPolicy.UpdatesToThisPolicy.Text"]</p>
+
+<p><strong>@Localizer["PrivacyPolicy.EffectiveDate.Heading"]:</strong> @Localizer["PrivacyPolicy.EffectiveDate.Text"]</p>
