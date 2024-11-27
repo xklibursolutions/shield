@@ -80,7 +80,7 @@ public class IntegrationTests(WebApplicationFactory<Program> factory)
     {
         // Act - Register
         RegisterOutputModel? registerResult =
-            await RegisterAsync("newuser", "opencode@xklibursolutions.io", "Password123!");
+            await RegisterAsync("newuser", "newuser@example.com", "Password123!");
 
         // Assert - Register
         Assert.NotNull(registerResult);
